@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8a4c8">
+<link rel="manifest" href="manifest.json">
+<title>لولو وماما</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --pink: #f8a4c8; --pink-dark: #e8739a; --pink-light: #fef0f7;
+    --purple: #9b59b6; --purple-light: #f3e9f9;
+    --green: #27ae60; --green-light: #eafaf1;
+    --blue: #2980b9; --blue-light: #eaf4fb;
+    --red: #e74c3c; --yellow: #f39c12;
+    --text: #2c2c2c; --gray: #7f8c8d; --border: #ffe0f0;
+    --bg: #fff8fc;
+  }
+  body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .screen { display: none; min-height: 100vh; flex-direction: column; }
+  .screen.active { display: flex; }
+
+  .header { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 16px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header h1 { font-size: 1.2rem; font-weight: 700; }
+  .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo { font-size: 1.6rem; }
+
+  #screen-welcome { background: linear-gradient(160deg, #fce4f3 0%, #e8d5f5 100%); justify-content: center; align-items: center; text-align: center; padding: 40px 24px; }
+  .welcome-logo { font-size: 5rem; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  .welcome-img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 16px; animation: float 3s ease-in-out infinite; border-radius: 50%; box-shadow: 0 8px 30px rgba(232,115,154,0.3); }
+  .welcome-title { font-size: 2.2rem; font-weight: 800; color: var(--pink-dark); margin-bottom: 8px; }
+  .welcome-tagline { font-size: 1rem; color: var(--purple); margin-bottom: 40px; line-height: 1.6; }
+  .btn { padding: 14px 32px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: 700; font-family: inherit; transition: all 0.2s; }
+  .btn-primary { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; box-shadow: 0 4px 15px rgba(232,115,154,0.4); }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-secondary { background: white; color: var(--pink-dark); border: 2px solid var(--pink-dark); margin-top: 12px; }
+  .btn-block { display: block; width: 100%; margin-bottom: 12px; }
+
+  #screen-register { padding: 0; }
+  .register-body { padding: 24px; flex: 1; overflow-y: auto; }
+  .reg-choice { display: flex; gap: 12px; margin-bottom: 24px; }
+  .choice-card { flex: 1; padding: 20px 12px; border: 2px solid var(--border); border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.2s; background: white; }
+  .choice-card.selected { border-color: var(--pink-dark); background: var(--pink-light); }
+  .choice-card .emoji { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--purple); }
+  .form-group input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; outline: none; background: white; }
+  .form-group input:focus { border-color: var(--pink-dark); }
+
+  .bottom-nav { background: white; border-top: 1px solid var(--border); display: flex; padding: 8px 0 12px; position: sticky; bottom: 0; box-shadow: 0 -2px 12px rgba(0,0,0,0.08); z-index: 10; }
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 4px; border: none; background: none; color: var(--gray); transition: color 0.2s; font-family: inherit; }
+  .nav-item.active { color: var(--pink-dark); }
+  .nav-icon { font-size: 1.4rem; }
+  .nav-label { font-size: 0.65rem; font-weight: 600; }
+
+  .home-hero { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 24px 20px 32px; }
+  .home-greeting { font-size: 1rem; opacity: 0.9; margin-bottom: 4px; }
+  .home-name { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
+  .home-stage { background: rgba(255,255,255,0.2); border-radius: 12px; padding: 8px 14px; display: inline-block; font-size: 0.85rem; }
+  .home-content { padding: 20px; flex: 1; overflow-y: auto; }
+  .section-title { font-size: 1.1rem; font-weight: 700; color: var(--purple); margin-bottom: 16px; }
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dash-card { background: white; border-radius: 16px; padding: 20px 16px; text-align: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: all 0.2s; }
+  .dash-card:hover { transform: translateY(-2px); }
+  .dash-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
+  .dash-card .card-label { font-size: 0.85rem; font-weight: 700; }
+  .dash-card .card-sub { font-size: 0.72rem; color: var(--gray); margin-top: 4px; }
+
+  #screen-chat { }
+  .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+  .chat-bubble { max-width: 82%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.7; }
+  .bubble-ai { background: white; border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; align-self: flex-start; }
+  .bubble-user { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border-radius: 18px 18px 4px 18px; align-self: flex-end; }
+  .chat-input-area { padding: 12px 16px; background: white; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
+  .chat-input { flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 24px; font-size: 0.9rem; font-family: inherit; outline: none; resize: none; max-height: 100px; }
+  .chat-input:focus { border-color: var(--pink-dark); }
+  .send-btn { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .free-counter { background: var(--pink-light); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; margin: 8px 16px 0; font-size: 0.8rem; color: var(--pink-dark); font-weight: 600; text-align: center; }
+  .typing-dots { display: flex; gap: 4px; padding: 8px 4px; align-items: center; }
+  .typing-dots span { width: 8px; height: 8px; background: var(--pink-dark); border-radius: 50%; animation: bounce 1.2s infinite; }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-8px)} }
+
+  .paywall { flex: 1; padding: 32px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .paywall-icon { font-size: 4rem; margin-bottom: 16px; }
+  .paywall h2 { font-size: 1.4rem; font-weight: 800; color: var(--purple); margin-bottom: 8px; }
+  .paywall p { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.6; }
+
+  .vaccine-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .vaccine-card { background: white; border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .vaccine-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; }
+  .vaccine-age { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border-radius: 8px; padding: 6px 10px; font-size: 0.8rem; font-weight: 700; min-width: 70px; text-align: center; }
+  .vaccine-title { font-weight: 700; font-size: 0.9rem; flex: 1; }
+  .vaccine-details { padding: 0 16px 14px; display: none; }
+  .vaccine-details.open { display: block; }
+  .vaccine-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--pink-light); font-size: 0.85rem; }
+  .vaccine-item:last-child { border-bottom: none; }
+  .vaccine-dot { width: 8px; height: 8px; background: var(--pink-dark); border-radius: 50%; flex-shrink: 0; }
+
+  .milestone-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .stage-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+  .stage-tabs::-webkit-scrollbar { display: none; }
+  .stage-tab { flex-shrink: 0; padding: 8px 14px; border-radius: 20px; border: 2px solid var(--border); background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: var(--gray); font-family: inherit; }
+  .stage-tab.active { background: var(--pink-dark); color: white; border-color: var(--pink-dark); }
+  .milestone-stage { display: none; }
+  .milestone-stage.active { display: block; }
+  .milestone-category { background: white; border-radius: 14px; margin-bottom: 12px; padding: 16px; border: 1px solid var(--border); }
+  .milestone-cat-title { font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .milestone-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 0.85rem; line-height: 1.5; }
+  .m-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--pink-dark); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; }
+  .m-check.done { background: var(--pink-dark); color: white; }
+
+  .stories-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .story-card { background: white; border-radius: 16px; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer; transition: all 0.2s; }
+  .story-card:hover { transform: translateY(-2px); }
+  .story-banner { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+  .story-info { padding: 14px; }
+  .age-badge { display: inline-block; background: var(--purple-light); color: var(--purple); border-radius: 8px; padding: 3px 10px; font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; }
+  .story-title { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+  .story-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
+  .story-reader-body { padding: 24px; flex: 1; overflow-y: auto; }
+  .story-text { font-size: 0.95rem; line-height: 2; }
+  .story-lesson { background: var(--purple-light); border-right: 4px solid var(--purple); border-radius: 12px; padding: 16px; margin-top: 24px; }
+  .story-lesson h4 { color: var(--purple); font-weight: 700; margin-bottom: 6px; }
+  .story-lesson p { font-size: 0.85rem; line-height: 1.6; }
+
+  .plans-body { padding: 20px; flex: 1; overflow-y: auto; }
+  .plan-card { background: white; border-radius: 18px; padding: 20px; margin-bottom: 14px; border: 2px solid var(--border); }
+  .plan-card.featured { border-color: var(--pink-dark); background: var(--pink-light); }
+  .plan-badge { background: var(--pink-dark); color: white; border-radius: 8px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+  .plan-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .plan-price { font-size: 1.8rem; font-weight: 800; color: var(--pink-dark); margin-bottom: 4px; }
+  .plan-price span { font-size: 0.9rem; font-weight: 500; color: var(--gray); }
+  .payment-box { background: var(--green-light); border: 1px solid var(--green); border-radius: 14px; padding: 16px; margin-top: 20px; }
+  .payment-box h3 { color: var(--green); font-weight: 700; margin-bottom: 10px; }
+  .payment-step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; font-size: 0.85rem; line-height: 1.5; }
+  .step-num { background: var(--green); color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+  .ccp-num { font-family: monospace; font-weight: 700; background: white; padding: 2px 6px; border-radius: 4px; }
+  .wa-btn { background: #25d366; color: white; border: none; border-radius: 12px; padding: 12px 20px; width: 100%; margin-top: 12px; cursor: pointer; font-size: 0.9rem; font-weight: 700; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .code-entry { background: var(--blue-light); border: 1px solid var(--blue); border-radius: 14px; padding: 16px; margin-top: 16px; }
+  .code-entry h4 { color: var(--blue); font-weight: 700; margin-bottom: 10px; font-size: 0.9rem; }
+  .code-entry-row { display: flex; gap: 8px; }
+  .code-entry input { flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.85rem; font-family: monospace; outline: none; }
+  .code-entry button { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 10px 16px; cursor: pointer; font-size: 0.85rem; font-family: inherit; font-weight: 600; }
+
+  .profile-body { padding: 20px; flex: 1; overflow-y: auto; }
+  .profile-hero { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); border-radius: 20px; padding: 24px; color: white; text-align: center; margin-bottom: 20px; }
+  .profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; margin-bottom: 12px; background: rgba(255,255,255,0.2); padding: 8px; }
+  .profile-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+  .profile-stage-text { font-size: 0.85rem; opacity: 0.9; }
+  .profile-status { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 12px; font-size: 0.8rem; margin-top: 8px; }
+  .profile-section { background: white; border-radius: 14px; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--border); }
+  .profile-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .profile-item:last-child { border-bottom: none; }
+  .pil { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600; }
+  .renewal-banner { border-radius: 10px; padding: 10px 14px; margin: 0 0 14px; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; }
+  .renewal-yellow { background: #fef9e7; border: 1px solid var(--yellow); color: #7d6608; }
+  .renewal-red { background: #fdedec; border: 1px solid var(--red); color: var(--red); }
+
+  .admin-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .admin-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .stat-card { background: white; border-radius: 14px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--purple); }
+  .stat-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+  .admin-section { background: white; border-radius: 14px; margin-bottom: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .admin-section-title { padding: 14px 16px; font-weight: 700; color: white; background: linear-gradient(135deg, var(--pink-dark), var(--purple)); font-size: 0.9rem; }
+  .admin-section-body { padding: 16px; }
+  .admin-input { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-family: inherit; outline: none; margin-bottom: 10px; }
+  .admin-select { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-family: inherit; outline: none; background: white; margin-bottom: 10px; }
+  .generated-code { background: var(--pink-light); border: 2px dashed var(--pink-dark); border-radius: 12px; padding: 14px; text-align: center; margin-top: 12px; display: none; }
+  .code-text { font-family: monospace; font-size: 1.2rem; font-weight: 800; color: var(--purple); letter-spacing: 2px; }
+  .code-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .code-actions button { flex: 1; padding: 8px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; font-family: inherit; }
+  .btn-copy { background: var(--purple-light); color: var(--purple); }
+  .btn-wa { background: #25d366; color: white; }
+  .sub-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .sub-item:last-child { border-bottom: none; }
+  .sub-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+  .badge-active { background: var(--green-light); color: var(--green); }
+  .badge-expiring { background: #fef9e7; color: var(--yellow); }
+  .badge-expired { background: #fdedec; color: var(--red); }
+  .alert-item { background: #fdedec; border: 1px solid var(--red); border-radius: 10px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.82rem; }
+  .alert-name { font-weight: 700; color: var(--red); }
+  .alert-wa { background: #25d366; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.75rem; cursor: pointer; font-family: inherit; }
+
+  .admin-login-body { padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; }
+  .pin-input { padding: 14px 20px; border: 2px solid var(--border); border-radius: 14px; font-size: 1.2rem; text-align: center; letter-spacing: 8px; width: 200px; outline: none; font-family: monospace; margin-bottom: 8px; }
+  .pin-input:focus { border-color: var(--pink-dark); }
+  .pin-error { color: var(--red); font-size: 0.85rem; display: none; margin-bottom: 8px; }
+
+  .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--purple); color: white; padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; z-index: 1000; animation: fadeInOut 2.5s ease; pointer-events: none; white-space: nowrap; }
+  @keyframes fadeInOut { 0%{opacity:0;transform:translateX(-50%) translateY(10px)} 20%,80%{opacity:1;transform:translateX(-50%) translateY(0)} 100%{opacity:0} }
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="screen-welcome" class="screen active">
+  <div class="welcome-logo">🌸</div>
+  <div class="welcome-title">لولو وماما</div>
+  <div class="welcome-tagline">من الحمل حتى سن الخامسة لصغيرك<br>رفيقتك في كل مرحلة 💕</div>
+  <button class="btn btn-primary" onclick="showScreen('register')">ابدئي رحلتك 💕</button>
+  <button class="btn btn-secondary" onclick="loginReturning()">لديّ حساب بالفعل</button>
+</div>
+
+<!-- REGISTER -->
+<div id="screen-register" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="showScreen('welcome')">→</button>
+    <span class="logo">🌸</span>
+    <h1>إنشاء حسابك</h1>
+  </div>
+  <div class="register-body">
+    <p style="color:var(--gray);font-size:0.85rem;margin-bottom:20px">أخبرينا عن وضعك لنقدم لك المحتوى المناسب</p>
+    <div class="reg-choice">
+      <div class="choice-card selected" id="choice-pregnant" onclick="selectChoice('pregnant')">
+        <span class="emoji" style="font-size:2.5rem;display:block;margin-bottom:8px">🤰</span>
+        <span style="font-size:0.95rem;font-weight:600">حامل</span>
+      </div>
+      <div class="choice-card" id="choice-mama" onclick="selectChoice('mama')">
+        <span class="emoji" style="font-size:2.5rem;display:block;margin-bottom:8px">👶</span>
+        <span style="font-size:0.95rem;font-weight:600">أمّ</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label id="date-label">تاريخ الولادة المتوقع</label>
+      <input type="date" id="reg-date">
+    </div>
+    <div class="form-group">
+      <label>اسمك (اختياري)</label>
+      <input type="text" id="reg-name" placeholder="مثال: سارة">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="completeRegistration()">دخولي 💕</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="screen-home" class="screen">
+  <div class="home-hero">
+    <div class="home-greeting">أهلاً وسهلاً،</div>
+    <div class="home-name" id="home-name">أمّ لولو 💕</div>
+    <div class="home-stage" id="home-stage">🤰 مرحلة الحمل</div>
+  </div>
+  <div id="home-banner"></div>
+  <div class="home-content">
+    <div class="section-title">ماذا تريدين اليوم؟</div>
+    <div class="cards-grid">
+      <div class="dash-card" onclick="goToChat()">
+        <div class="card-icon">💬</div>
+        <div class="card-label">اسأليني</div>
+        <div class="card-sub">استشارة فورية</div>
+      </div>
+      <div class="dash-card" onclick="nav('vaccine')">
+        <div class="card-icon">💉</div>
+        <div class="card-label">التطعيمات</div>
+        <div class="card-sub">جدول PEV 2023</div>
+      </div>
+      <div class="dash-card" onclick="nav('milestones')">
+        <div class="card-icon">🌱</div>
+        <div class="card-label">مراحل النمو</div>
+        <div class="card-sub">تطور طفلك</div>
+      </div>
+      <div class="dash-card" onclick="nav('stories')">
+        <div class="card-icon">📖</div>
+        <div class="card-label">قصص تربوية</div>
+        <div class="card-sub">٤ قصص تعليمية</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="screen-chat" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('home')">→</button>
+    <span class="logo">💬</span>
+    <h1>اسأليني</h1>
+  </div>
+  <div id="chat-counter" class="free-counter">لديك <span id="free-left">3</span> استشارات مجانية</div>
+  <div class="chat-body" id="chat-body">
+    <div class="chat-bubble bubble-ai">أهلاً! أنا مساعدتك في لولو وماما 🌸 يمكنك سؤالي عن الحمل، تغذية الطفل، النوم، النمو، وأي قلق يراودك. أنا هنا! 💕</div>
+  </div>
+  <div id="chat-paywall"></div>
+  <div class="chat-input-area" id="chat-input-area">
+    <textarea class="chat-input" id="chat-input" placeholder="اكتبي سؤالك هنا..." rows="1"></textarea>
+    <button class="send-btn" onclick="sendMessage()">↑</button>
+  </div>
+</div>
+
+<!-- VACCINE -->
+<div id="screen-vaccine" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('home')">→</button>
+    <span class="logo">💉</span><h1>جدول التطعيمات</h1>
+  </div>
+  <div class="vaccine-body" id="vaccine-body"></div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- MILESTONES -->
+<div id="screen-milestones" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('home')">→</button>
+    <span class="logo">🌱</span><h1>مراحل النمو</h1>
+  </div>
+  <div class="milestone-body" id="milestone-body"></div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- STORIES -->
+<div id="screen-stories" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('home')">→</button>
+    <span class="logo">📖</span><h1>قصص تربوية</h1>
+  </div>
+  <div class="stories-body" id="stories-body"></div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item active" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- STORY READER -->
+<div id="screen-story-reader" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('stories')">→</button>
+    <span class="logo">📖</span><h1 id="reader-header">القصة</h1>
+  </div>
+  <div class="story-reader-body" id="story-reader-body"></div>
+</div>
+
+<!-- PLANS -->
+<div id="screen-plans" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('home')">→</button>
+    <span class="logo">⭐</span><h1>الباقات</h1>
+  </div>
+  <div class="plans-body">
+    <div style="text-align:center;margin-bottom:24px">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--purple);margin-bottom:8px">اختاري باقتك 💕</h2>
+      <p style="font-size:0.85rem;color:var(--gray)">استشارات غير محدودة مع مساعدتك الذكية</p>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">شهري</div>
+      <div class="plan-price">500 <span>دج / شهر</span></div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">الأكثر شعبية ✨</div>
+      <div class="plan-name">3 أشهر</div>
+      <div class="plan-price">1200 <span>دج / 3 أشهر</span></div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">سنوي</div>
+      <div class="plan-price">4000 <span>دج / سنة</span></div>
+    </div>
+    <div class="payment-box">
+      <h3>💳 طريقة الدفع</h3>
+      <div class="payment-step"><div class="step-num">1</div><div>أرسلي المبلغ عبر CCP:<br><span class="ccp-num">00799999002273364956</span></div></div>
+      <div class="payment-step"><div class="step-num">2</div><div>أرسلي صورة الإيصال على واتساب</div></div>
+      <div class="payment-step"><div class="step-num">3</div><div>ستصلك رسالة بكودك خلال دقائق ✅</div></div>
+      <button class="wa-btn" onclick="openWA('payment')">📲 تواصلي معنا على واتساب</button>
+    </div>
+    <div class="code-entry">
+      <h4>🎫 لديك كود اشتراك؟</h4>
+      <div class="code-entry-row">
+        <input type="text" id="act-code" placeholder="أدخلي الكود هنا" style="text-transform:uppercase">
+        <button onclick="activateCode()">تفعيل</button>
+      </div>
+      <div id="act-result" style="font-size:0.8rem;margin-top:8px"></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item active" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="screen-profile" class="screen">
+  <div class="header"><span class="logo">👤</span><h1>ملفي</h1></div>
+  <div class="profile-body">
+    <div class="profile-hero">
+      <div style="font-size:3.5rem;margin-bottom:12px">🌸</div>
+      <div class="profile-name" id="profile-name">أمّ لولو</div>
+      <div class="profile-stage-text" id="profile-stage-text">مرحلتك</div>
+      <div class="profile-status" id="profile-status">مجاني — 3 استشارات</div>
+    </div>
+    <div id="profile-banner"></div>
+    <div class="profile-section">
+      <div class="profile-item" onclick="nav('plans')"><div class="pil"><span>⭐</span><span>الاشتراك والباقات</span></div><span style="color:var(--gray)">‹</span></div>
+      <div class="profile-item" onclick="nav('vaccine')"><div class="pil"><span>💉</span><span>جدول التطعيمات</span></div><span style="color:var(--gray)">‹</span></div>
+      <div class="profile-item" onclick="nav('milestones')"><div class="pil"><span>🌱</span><span>مراحل النمو</span></div><span style="color:var(--gray)">‹</span></div>
+    </div>
+    <div class="profile-section">
+      <div class="profile-item" onclick="showAdminLogin()"><div class="pil"><span>🔐</span><span>لوحة الإدارة</span></div><span style="color:var(--gray)">‹</span></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
+    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item active" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="screen-admin-login" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('profile')">→</button>
+    <span class="logo">🔐</span><h1>لوحة الإدارة</h1>
+  </div>
+  <div class="admin-login-body">
+    <div style="font-size:3rem;margin-bottom:16px">🔐</div>
+    <h2 style="font-size:1.3rem;font-weight:800;color:var(--purple);margin-bottom:8px">دخول المشرف</h2>
+    <p style="color:var(--gray);font-size:0.85rem;margin-bottom:24px">أدخل الكود السري</p>
+    <input type="password" class="pin-input" id="admin-pin" placeholder="••••••••" maxlength="8">
+    <div class="pin-error" id="pin-error">❌ الكود غير صحيح</div>
+    <button class="btn btn-primary" style="width:200px" onclick="checkPin()">دخول</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="screen-admin" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="nav('profile')">→</button>
+    <span class="logo">📊</span><h1>لوحة الإدارة</h1>
+  </div>
+  <div class="admin-body">
+    <div class="admin-stats" id="admin-stats"></div>
+    <div class="admin-section">
+      <div class="admin-section-title">🎫 توليد كود اشتراك</div>
+      <div class="admin-section-body">
+        <input class="admin-input" id="gen-name" placeholder="اسم المشتركة">
+        <input class="admin-input" id="gen-phone" placeholder="رقم الهاتف (10 أرقام)" maxlength="10" type="tel">
+        <select class="admin-select" id="gen-plan">
+          <option value="LLM1">شهري — 500 دج</option>
+          <option value="LLM3">3 أشهر — 1200 دج</option>
+          <option value="LLMY">سنوي — 4000 دج</option>
+        </select>
+        <button class="btn btn-primary btn-block" onclick="generateCode()">توليد الكود ✨</button>
+        <div class="generated-code" id="gen-box">
+          <div style="font-size:0.8rem;color:var(--gray);margin-bottom:6px">الكود:</div>
+          <div class="code-text" id="gen-code"></div>
+          <div style="font-size:0.75rem;color:var(--gray);margin-top:4px" id="gen-expiry"></div>
+          <div class="code-actions">
+            <button class="btn-copy" onclick="copyCode()">📋 نسخ</button>
+            <button class="btn-wa" onclick="sendCodeWA()">📲 واتساب</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">👥 المشتركات</div>
+      <div class="admin-section-body" id="subs-list"></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">🔴 تنبيهات التجديد</div>
+      <div class="admin-section-body" id="alerts-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_CODE = '04012025';
+const WA = '213657062825';
+const GROQ_KEY = 'REPLACE_WITH_KEY';
+
+let S = {
+  userType: 'pregnant', userName: '', userDate: '',
+  freeChats: 3, subscribed: false, subExpiry: null,
+  subscribers: [
+    { name: 'فاطمة', phone: '0555123456', plan: 'LLM3', expiry: new Date(Date.now() + 2*864e5) },
+    { name: 'سارة', phone: '0661234567', plan: 'LLMY', expiry: new Date(Date.now() + 15*864e5) },
+    { name: 'نور', phone: '0770987654', plan: 'LLM1', expiry: new Date(Date.now() - 2*864e5) },
+  ],
+  lastCode: null, lastName: '', lastPlan: '', lastExpiry: null,
+  chatHistory: []
+};
+
+// NAV
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function nav(id) {
+  showScreen(id);
+  if (id==='home') updateHome();
+  if (id==='profile') updateProfile();
+  if (id==='vaccine') renderVaccine();
+  if (id==='milestones') renderMilestones();
+  if (id==='stories') renderStories();
+  if (id==='admin') renderAdmin();
+}
+
+// REGISTER
+function selectChoice(t) {
+  S.userType = t;
+  document.getElementById('choice-pregnant').classList.toggle('selected', t==='pregnant');
+  document.getElementById('choice-mama').classList.toggle('selected', t==='mama');
+  document.getElementById('date-label').textContent = t==='pregnant' ? 'تاريخ الولادة المتوقع' : 'تاريخ ميلاد طفلك';
+}
+function completeRegistration() {
+  S.userName = document.getElementById('reg-name').value.trim();
+  S.userDate = document.getElementById('reg-date').value;
+  updateHome(); nav('home');
+}
+function loginReturning() { updateHome(); nav('home'); }
+
+// HOME
+function updateHome() {
+  document.getElementById('home-name').textContent = S.userName ? `أهلاً ${S.userName} 💕` : 'أهلاً بك 💕';
+  document.getElementById('home-stage').textContent = stageText();
+  document.getElementById('home-banner').innerHTML = bannerHTML();
+}
+function stageText() {
+  if (S.userType==='pregnant') return '🤰 مرحلة الحمل';
+  if (!S.userDate) return '👶 مرحلة الطفولة';
+  const m = monthsOld();
+  return m < 12 ? `👶 ${m} أشهر` : `🌟 ${Math.floor(m/12)} سنة`;
+}
+function monthsOld() {
+  const b = new Date(S.userDate), n = new Date();
+  return Math.max(0, (n.getFullYear()-b.getFullYear())*12 + n.getMonth()-b.getMonth());
+}
+function bannerHTML() {
+  if (!S.subscribed || !S.subExpiry) return '';
+  const d = Math.ceil((S.subExpiry - Date.now()) / 864e5);
+  if (d<=0) return `<div class="renewal-banner renewal-red" style="margin:12px 16px 0">🔴 انتهى اشتراكك — جددي الآن</div>`;
+  if (d<=3) return `<div class="renewal-banner renewal-red" style="margin:12px 16px 0">🔴 اشتراكك ينتهي خلال ${d} أيام!</div>`;
+  if (d<=7) return `<div class="renewal-banner renewal-yellow" style="margin:12px 16px 0">⚠️ اشتراكك ينتهي خلال ${d} أيام</div>`;
+  return '';
+}
+
+// CHAT
+function goToChat() { showScreen('chat'); updateChatUI(); }
+function updateChatUI() {
+  const blocked = !S.subscribed && S.freeChats <= 0;
+  const expired = S.subscribed && S.subExpiry && S.subExpiry < Date.now();
+  const pw = document.getElementById('chat-paywall');
+  const ia = document.getElementById('chat-input-area');
+  const cc = document.getElementById('chat-counter');
+  if (blocked || expired) {
+    ia.style.display = 'none'; cc.style.display = 'none';
+    pw.innerHTML = `<div class="paywall">
+      <div class="paywall-icon">${expired?'⏰':'🔒'}</div>
+      <h2>${expired?'انتهى اشتراكك':'استنفذت استشاراتك المجانية'}</h2>
+      <p>${expired?'جددي اشتراكك للاستمرار':'اشتركي للحصول على استشارات غير محدودة 💕'}</p>
+      <button class="btn btn-primary" onclick="nav('plans')">اشتركي الآن ⭐</button></div>`;
+  } else {
+    ia.style.display = 'flex'; pw.innerHTML = '';
+    cc.style.display = S.subscribed ? 'none' : 'block';
+    document.getElementById('free-left').textContent = S.freeChats;
+  }
+}
+
+async function sendMessage() {
+  const inp = document.getElementById('chat-input');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  if (!S.subscribed && S.freeChats <= 0) { updateChatUI(); return; }
+  if (!S.subscribed) { S.freeChats--; document.getElementById('free-left').textContent = S.freeChats; }
+  addBubble(msg, 'user');
+  inp.value = '';
+  S.chatHistory.push({ role: 'user', content: msg });
+
+  const typing = document.createElement('div');
+  typing.className = 'chat-bubble bubble-ai';
+  typing.id = 'typing';
+  typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('chat-body').appendChild(typing);
+  scrollChat();
+
+  try {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 300,
+        messages: [
+          { role: 'system', content: 'أنتِ مساعدة طبية ودية متخصصة في الحمل ورعاية الأطفال حتى سن 5 سنوات. تتحدثين بالعربية الفصحى البسيطة مع مراعاة السياق الجزائري. ردودك دافئة وعملية ولا تتجاوز 150 كلمة. دائماً تختمين بتذكير لطيف باستشارة الطبيب عند الضرورة.' },
+          ...S.chatHistory.slice(-6)
+        ]
+      })
+    });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.choices?.[0]?.message?.content || 'عذراً، حدث خطأ. حاولي مرة أخرى.';
+    S.chatHistory.push({ role: 'assistant', content: reply });
+    addBubble(reply, 'ai');
+  } catch(e) {
+    document.getElementById('typing')?.remove();
+    addBubble('عذراً، حدث خطأ في الاتصال. تأكدي من الإنترنت وحاولي مجدداً.', 'ai');
+  }
+  updateChatUI(); scrollChat();
+}
+
+function addBubble(text, who) {
+  const d = document.createElement('div');
+  d.className = `chat-bubble bubble-${who}`;
+  d.textContent = text;
+  document.getElementById('chat-body').appendChild(d);
+  scrollChat();
+}
+function scrollChat() {
+  const b = document.getElementById('chat-body');
+  setTimeout(() => b.scrollTop = b.scrollHeight, 50);
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('chat-input');
+  if (inp) inp.addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+});
+
+// VACCINE
+const vaccineData = [
+  { age: 'عند الولادة', v: ['BCG — السل', 'VPO 0 — شلل الأطفال الفموي', 'VHB 1 — التهاب الكبد B'] },
+  { age: 'الشهر الثالث', v: ['DTC-Hib-HBV 1', 'VPO 1', 'VPI 1 — شلل الأطفال المحقون', 'PCV1 — المكورات الرئوية', 'Rota 1 — الروتا'] },
+  { age: 'الشهر الرابع', v: ['DTC-Hib-HBV 2', 'VPO 2', 'VPI 2', 'PCV2', 'Rota 2'] },
+  { age: 'الشهر الخامس', v: ['DTC-Hib-HBV 3', 'VPO 3', 'VPI 3', 'PCV3'] },
+  { age: '9 أشهر', v: ['VAR — الحصبة', 'VAA — الحمى الصفراء'] },
+  { age: '12 شهراً', v: ['RR — الحصبة والحصبة الألمانية', 'PCV4'] },
+  { age: '18 شهراً', v: ['DTC-Hib-HBV Rappel', 'VPO Rappel', 'VPI Rappel'] },
+  { age: '6 سنوات', v: ['DT — الدفتيريا والكزاز', 'VPO'] },
+  { age: '11-13 سنة', v: ['Td — الدفتيريا والكزاز', 'VPO'] },
+];
+function renderVaccine() {
+  document.getElementById('vaccine-body').innerHTML = vaccineData.map((v,i) => `
+    <div class="vaccine-card">
+      <div class="vaccine-header" onclick="toggleV(${i})">
+        <div class="vaccine-age">${v.age}</div>
+        <div class="vaccine-title">${v.v.length} لقاح</div>
+        <span id="va-${i}">▼</span>
+      </div>
+      <div class="vaccine-details" id="vd-${i}">
+        ${v.v.map(x=>`<div class="vaccine-item"><div class="vaccine-dot"></div><div>${x}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function toggleV(i) {
+  const d = document.getElementById('vd-'+i), a = document.getElementById('va-'+i);
+  a.textContent = d.classList.toggle('open') ? '▲' : '▼';
+}
+
+// MILESTONES
+const milestoneData = [
+  { stage:'الحمل', emoji:'🤰', cats:[
+    { t:'🍎 التغذية', items:['تناولي حمض الفوليك يومياً','ابتعدي عن المأكولات النيئة','اشربي 8 أكواب ماء يومياً'] },
+    { t:'🏥 المتابعة الطبية', items:['زيارة الطبيب كل 4 أسابيع','تحاليل الدم والسكر','الإيكوغرافي في الأشهر المقررة'] }
+  ]},
+  { stage:'0-3 أشهر', emoji:'🍼', cats:[
+    { t:'💪 حركي', items:['يرفع رأسه قليلاً','يتحرك ذراعاه وساقاه'] },
+    { t:'😊 اجتماعي', items:['يبتسم استجابة لك','يتابع وجهك','يصدر أصواتاً'] }
+  ]},
+  { stage:'4-6 أشهر', emoji:'🌟', cats:[
+    { t:'💪 حركي', items:['يتقلب من ظهره لبطنه','يمسك الأشياء','يجلس بمساعدة'] },
+    { t:'🗣️ لغوي', items:['يصدر أصواتاً متعددة','يضحك بصوت عالٍ','يستجيب لاسمه'] }
+  ]},
+  { stage:'7-12 شهراً', emoji:'🚶', cats:[
+    { t:'💪 حركي', items:['يزحف ويتنقل','يقف ممسكاً بالأثاث','يبدأ الخطوات الأولى'] },
+    { t:'🧠 معرفي', items:['يفهم "لا"','يقلد الإيماءات','يلعب ألعاب التخبئة'] }
+  ]},
+  { stage:'1-5 سنوات', emoji:'🏃', cats:[
+    { t:'🗣️ لغوي', items:['أولى كلماته (12-18 شهراً)','يربط كلمتين (18-24 شهراً)','جمل قصيرة (2-3 سنوات)'] },
+    { t:'🎨 إبداعي', items:['يرسم خطوطاً ودوائر','يلعب لعباً إيهامياً','يحب القصص'] }
+  ]},
+];
+const mChecks = {};
+function renderMilestones() {
+  const tabs = milestoneData.map((s,i)=>`<button class="stage-tab ${i===0?'active':''}" onclick="switchTab(${i})">${s.emoji} ${s.stage}</button>`).join('');
+  const stages = milestoneData.map((s,si)=>`
+    <div class="milestone-stage ${si===0?'active':''}" id="ms-${si}">
+      ${s.cats.map((c,ci)=>`
+        <div class="milestone-category">
+          <div class="milestone-cat-title">${c.t}</div>
+          ${c.items.map((item,ii)=>{
+            const k=`${si}-${ci}-${ii}`, done=mChecks[k];
+            return `<div class="milestone-item"><div class="m-check ${done?'done':''}" onclick="toggleCheck('${k}',this)">${done?'✓':''}</div><div>${item}</div></div>`;
+          }).join('')}
+        </div>`).join('')}
+    </div>`).join('');
+  document.getElementById('milestone-body').innerHTML = `<div class="stage-tabs">${tabs}</div>${stages}`;
+}
+function switchTab(i) {
+  document.querySelectorAll('.stage-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.milestone-stage').forEach((s,idx)=>s.classList.toggle('active',idx===i));
+}
+function toggleCheck(k, el) {
+  mChecks[k] = !mChecks[k];
+  el.classList.toggle('done', mChecks[k]);
+  el.textContent = mChecks[k] ? '✓' : '';
+}
+
+// STORIES
+const stories = [
+  { emoji:'🌙', color:'#667eea', age:'0-2 سنة', title:'نوم هنيء يا حبيبي', desc:'قصة تساعد طفلك على الاستعداد للنوم بهدوء',
+    text:`كان الليل يهبط بهدوء على البيت الصغير، وكان الطفل يحك عينيه الصغيرتين.\n\nقالت الأم بصوت ناعم: "حان وقت النوم يا حبيبي..."\n\nنظر الطفل إلى القمر من النافذة. القمر يبتسم. النجوم ترمش.\n\nاحتضنت الأم طفلها. شعر بدفء قلبها. سمع نبضها الهادئ.\n\nغمضت العيون الصغيرة ببطء...\n\nنام بأمان في حضن الحب.`,
+    lesson:'الروتين والدفء العاطفي يمنحان الطفل شعوراً بالأمان وينظمان نومه.' },
+  { emoji:'🍎', color:'#f093fb', age:'2-3 سنوات', title:'أكل وأنا سعيد', desc:'قصة تشجع الطفل على تناول الطعام الصحي',
+    text:`كانت سلمى لا تحب الخضار أبداً.\n\nيوماً ما، وجدت في طبقها جزرة برتقالية تبتسم لها!\n\n"آكليني وستصبحين قوية!" قالت الجزرة.\n\nضحكت سلمى وأكلت الجزرة، ثم الخيارة، ثم الطماطمة.\n\nقالت لأمها: "الخضار لذيذة يا ماما!"\n\nابتسمت الأم: "الطعام الصحي يجعلك تكبرين."`,
+    lesson:'تقديم الطعام بطريقة ممتعة يساعد الأطفال على تقبّل الأغذية الصحية.' },
+  { emoji:'👫', color:'#4facfe', age:'3-4 سنوات', title:'أنا وصديقي', desc:'قصة عن الصداقة والمشاركة',
+    text:`كان ياسر يلعب وحده في الحديقة.\n\nرأى طفلاً جديداً يجلس وحيداً.\n\n"ما اسمك؟" سأل ياسر.\n\n"أمين" قال الطفل بصوت خافت.\n\n"هل تحب كرة القدم؟" قال ياسر وأخرج كرته.\n\nابتسم أمين للمرة الأولى. لعبا معاً حتى الغروب.\n\n"الصداقة تبدأ بكلمة طيبة" قال ياسر لأمه.`,
+    lesson:'تعليم الطفل المبادرة والتعاطف يبني مهارات اجتماعية تدوم مدى الحياة.' },
+  { emoji:'🌟', color:'#43e97b', age:'4-5 سنوات', title:'أنا أستطيع', desc:'قصة عن الثقة بالنفس وتجاوز الخوف',
+    text:`كانت ليلى تخاف من الظلام.\n\nقالت أمها: "ليلى، الظلام ليس عدواً."\n\nأطفأت الأم المصباح ببطء.\n\nرأت ليلى نور القمر من الستارة. ونجمة رسمتها أمها تلمع في الظلام.\n\n"جميل!" همست ليلى.\n\nمن تلك الليلة، نامت بلا خوف.\n\nالشجاعة ليست غياب الخوف — بل مواجهته بمن نحب.`,
+    lesson:'مساعدة الطفل على مواجهة مخاوفه بأمان يبني ثقته بنفسه.' },
+];
+function renderStories() {
+  document.getElementById('stories-body').innerHTML = stories.map((s,i)=>`
+    <div class="story-card" onclick="openStory(${i})">
+      <div class="story-banner" style="background:linear-gradient(135deg,${s.color}33,${s.color}11)">${s.emoji}</div>
+      <div class="story-info">
+        <div class="age-badge">${s.age}</div>
+        <div class="story-title">${s.title}</div>
+        <div class="story-desc">${s.desc}</div>
+      </div>
+    </div>`).join('');
+}
+function openStory(i) {
+  const s = stories[i];
+  document.getElementById('reader-header').textContent = s.title;
+  document.getElementById('story-reader-body').innerHTML = `
+    <div style="text-align:center;font-size:4rem;margin-bottom:16px">${s.emoji}</div>
+    <div style="text-align:center;font-size:1.4rem;font-weight:800;color:var(--purple);margin-bottom:16px">${s.title}</div>
+    <div class="age-badge" style="display:inline-block;margin-bottom:16px">${s.age}</div>
+    <div class="story-text">${s.text.replace(/\n\n/g,'<br><br>')}</div>
+    <div class="story-lesson"><h4>💡 الفائدة التربوية</h4><p>${s.lesson}</p></div>`;
+  showScreen('story-reader');
+}
+
+// PROFILE
+function updateProfile() {
+  document.getElementById('profile-name').textContent = S.userName || 'أمّ لولو';
+  document.getElementById('profile-stage-text').textContent = stageText();
+  document.getElementById('profile-status').textContent = S.subscribed
+    ? (S.subExpiry ? `اشتراك فعّال حتى ${fmtDate(S.subExpiry)}` : 'اشتراك فعّال')
+    : `مجاني — ${S.freeChats} استشارات متبقية`;
+  document.getElementById('profile-banner').innerHTML = bannerHTML();
+}
+
+// ADMIN
+function showAdminLogin() {
+  document.getElementById('admin-pin').value = '';
+  document.getElementById('pin-error').style.display = 'none';
+  showScreen('admin-login');
+}
+function checkPin() {
+  if (document.getElementById('admin-pin').value === ADMIN_CODE) { showScreen('admin'); renderAdmin(); }
+  else document.getElementById('pin-error').style.display = 'block';
+}
+function renderAdmin() {
+  const now = Date.now();
+  const active = S.subscribers.filter(s=>s.expiry>now).length;
+  const expiring = S.subscribers.filter(s=>s.expiry>now && s.expiry-now<7*864e5).length;
+  const revenue = S.subscribers.reduce((a,s)=>a+(s.plan==='LLM1'?500:s.plan==='LLM3'?1200:4000),0);
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">مشتركات نشطات</div></div>
+    <div class="stat-card"><div class="stat-num">${revenue}</div><div class="stat-label">إجمالي (دج)</div></div>
+    <div class="stat-card"><div class="stat-num">${S.subscribers.length}</div><div class="stat-label">إجمالي المشتركات</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${expiring}</div><div class="stat-label">تنتهي قريباً</div></div>`;
+  document.getElementById('subs-list').innerHTML = S.subscribers.map(s=>{
+    const d=Math.ceil((s.expiry-now)/864e5);
+    const cls = d<=0?'badge-expired':d<=7?'badge-expiring':'badge-active';
+    const txt = d<=0?'منتهي':d<=7?`${d}ي`:'نشط';
+    return `<div class="sub-item"><div><div style="font-weight:700">${s.name}</div><div style="color:var(--gray)">${s.phone} — ${pName(s.plan)}</div></div><span class="sub-badge ${cls}">${txt}</span></div>`;
+  }).join('') || '<p style="color:var(--gray)">لا توجد مشتركات</p>';
+  const exp3 = S.subscribers.filter(s=>s.expiry>now&&(s.expiry-now)<3*864e5);
+  document.getElementById('alerts-body').innerHTML = exp3.length
+    ? exp3.map(s=>`<div class="alert-item"><div><div class="alert-name">${s.name}</div><div>${s.phone} — تنتهي ${fmtDate(s.expiry)}</div></div><button class="alert-wa" onclick="renewWA('${s.name}','${s.phone}','${s.plan}')">📲 تذكير</button></div>`).join('')
+    : '<p style="color:var(--green)">✅ لا توجد تنبيهات</p>';
+}
+function generateCode() {
+  const name=document.getElementById('gen-name').value.trim();
+  const phone=document.getElementById('gen-phone').value.trim();
+  const plan=document.getElementById('gen-plan').value;
+  if (!phone||phone.length<9){showToast('أدخلي رقم الهاتف بشكل صحيح');return;}
+  const l6=phone.slice(-6);
+  const cs=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
+  const code=`${plan}${l6}${cs}`;
+  const exp=new Date(Date.now()+pDays(plan)*864e5);
+  S.lastCode=code; S.lastName=name; S.lastPlan=plan; S.lastExpiry=exp;
+  document.getElementById('gen-code').textContent=code;
+  document.getElementById('gen-expiry').textContent=`صالح حتى: ${fmtDate(exp)}`;
+  document.getElementById('gen-box').style.display='block';
+  if(name){S.subscribers.unshift({name,phone,plan,expiry:exp});renderAdmin();}
+}
+function copyCode(){navigator.clipboard.writeText(S.lastCode).then(()=>showToast('تم نسخ الكود ✅'));}
+function sendCodeWA(){
+  const msg=`أهلاً ${S.lastName} 💕\nكودك للباقة ${pName(S.lastPlan)}:\n*${S.lastCode}*\nصالح حتى: ${fmtDate(S.lastExpiry)}\nافتحي التطبيق → الباقات → أدخلي الكود 🌸`;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
+}
+
+// ACTIVATION
+function activateCode(){
+  const code=document.getElementById('act-code').value.trim().toUpperCase();
+  const res=document.getElementById('act-result');
+  let plan=null;
+  if(code.startsWith('LLMY'))plan='LLMY';
+  else if(code.startsWith('LLM3'))plan='LLM3';
+  else if(code.startsWith('LLM1'))plan='LLM1';
+  if(!plan||code.length<12){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
+  const l6=code.slice(plan.length,plan.length+6);
+  const cs=code.slice(plan.length+6,plan.length+8);
+  const exp=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
+  if(cs!==exp){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
+  S.subscribed=true; S.subExpiry=new Date(Date.now()+pDays(plan)*864e5); S.freeChats=999;
+  res.innerHTML=`<span style="color:var(--green)">✅ تم التفعيل! باقة ${pName(plan)} حتى ${fmtDate(S.subExpiry)}</span>`;
+  showToast('تم تفعيل اشتراكك بنجاح 🎉'); updateProfile();
+}
+
+// WHATSAPP
+function openWA(type){
+  const msg=type==='payment'?'مرحباً، أريد الاشتراك في تطبيق لولو وماما 💕 إليك صورة الإيصال:':'';
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
+}
+function renewWA(name,phone,plan){
+  const msg=`أهلاً ${name} 💕\nاشتراكك في لولو وماما (${pName(plan)}) يوشك على الانتهاء.\nجددي الآن 🌸`;
+  window.open(`https://wa.me/213${phone.slice(1)}?text=${encodeURIComponent(msg)}`);
+}
+
+// UTILS
+function pName(c){return c==='LLM1'?'شهري':c==='LLM3'?'3 أشهر':'سنوي';}
+function pDays(c){return c==='LLM1'?30:c==='LLM3'?90:365;}
+function fmtDate(d){return new Date(d).toLocaleDateString('ar-DZ',{year:'numeric',month:'long',day:'numeric'});}
+function showToast(msg){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+}
+</script>
+</body>
+</html>
