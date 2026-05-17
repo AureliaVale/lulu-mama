@@ -199,7 +199,8 @@
 
 <!-- WELCOME -->
 <div id="screen-welcome" class="screen active">
-  <div class="welcome-logo">🌸</div>
+  <img src="icon-512.png" class="welcome-img" onerror="this.style.display='none'">
+  <div class="welcome-logo" style="display:none">🌸</div>
   <div class="welcome-title">لولو وماما</div>
   <div class="welcome-tagline">من الحمل حتى سن الخامسة لصغيرك<br>رفيقتك في كل مرحلة 💕</div>
   <button class="btn btn-primary" onclick="showScreen('register')">ابدئي رحلتك 💕</button>
@@ -408,6 +409,7 @@
   <div class="header"><span class="logo">👤</span><h1>ملفي</h1></div>
   <div class="profile-body">
     <div class="profile-hero">
+      <img src="icon-192.png" class="profile-img" onerror="this.style.display='none'">
       <div style="font-size:3.5rem;margin-bottom:12px">🌸</div>
       <div class="profile-name" id="profile-name">أمّ لولو</div>
       <div class="profile-stage-text" id="profile-stage-text">مرحلتك</div>
@@ -492,7 +494,7 @@
 <script>
 const ADMIN_CODE = '04012025';
 const WA = '213657062825';
-const GROQ_KEY = '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';
+const GROQ_KEY = 'REPLACE_WITH_KEY';
 
 let S = {
   userType: 'pregnant', userName: '', userDate: '',
