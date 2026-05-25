@@ -20,16 +20,13 @@
   body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   .screen { display: none; min-height: 100vh; flex-direction: column; }
   .screen.active { display: flex; }
-
-  .header { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 16px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 16px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); flex-shrink: 0; }
   .header h1 { font-size: 1.2rem; font-weight: 700; }
   .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .logo { font-size: 1.6rem; }
-
   #screen-welcome { background: linear-gradient(160deg, #fce4f3 0%, #e8d5f5 100%); justify-content: center; align-items: center; text-align: center; padding: 40px 24px; }
-  .welcome-logo { font-size: 5rem; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
   .welcome-img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 16px; animation: float 3s ease-in-out infinite; border-radius: 50%; box-shadow: 0 8px 30px rgba(232,115,154,0.3); }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
   .welcome-title { font-size: 2.2rem; font-weight: 800; color: var(--pink-dark); margin-bottom: 8px; }
   .welcome-tagline { font-size: 1rem; color: var(--purple); margin-bottom: 40px; line-height: 1.6; }
   .btn { padding: 14px 32px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: 700; font-family: inherit; transition: all 0.2s; }
@@ -37,59 +34,71 @@
   .btn-primary:hover { transform: translateY(-2px); }
   .btn-secondary { background: white; color: var(--pink-dark); border: 2px solid var(--pink-dark); margin-top: 12px; }
   .btn-block { display: block; width: 100%; margin-bottom: 12px; }
-
-  #screen-register { padding: 0; }
   .register-body { padding: 24px; flex: 1; overflow-y: auto; }
   .reg-choice { display: flex; gap: 12px; margin-bottom: 24px; }
   .choice-card { flex: 1; padding: 20px 12px; border: 2px solid var(--border); border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.2s; background: white; }
   .choice-card.selected { border-color: var(--pink-dark); background: var(--pink-light); }
-  .choice-card .emoji { font-size: 2.5rem; display: block; margin-bottom: 8px; }
   .form-group { margin-bottom: 20px; }
   .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--purple); }
-  .form-group input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; outline: none; background: white; }
-  .form-group input:focus { border-color: var(--pink-dark); }
-
-  .bottom-nav { background: white; border-top: 1px solid var(--border); display: flex; padding: 8px 0 12px; position: sticky; bottom: 0; box-shadow: 0 -2px 12px rgba(0,0,0,0.08); z-index: 10; }
+  .form-group input, .form-group select { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; outline: none; background: white; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--pink-dark); }
+  .bottom-nav { background: white; border-top: 1px solid var(--border); display: flex; padding: 8px 0 12px; position: sticky; bottom: 0; box-shadow: 0 -2px 12px rgba(0,0,0,0.08); z-index: 10; flex-shrink: 0; }
   .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 4px; border: none; background: none; color: var(--gray); transition: color 0.2s; font-family: inherit; }
   .nav-item.active { color: var(--pink-dark); }
   .nav-icon { font-size: 1.4rem; }
-  .nav-label { font-size: 0.65rem; font-weight: 600; }
-
-  .home-hero { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 24px 20px 32px; }
+  .nav-label { font-size: 0.62rem; font-weight: 600; }
+  .home-hero { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; padding: 24px 20px 32px; flex-shrink: 0; }
   .home-greeting { font-size: 1rem; opacity: 0.9; margin-bottom: 4px; }
   .home-name { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
   .home-stage { background: rgba(255,255,255,0.2); border-radius: 12px; padding: 8px 14px; display: inline-block; font-size: 0.85rem; }
   .home-content { padding: 20px; flex: 1; overflow-y: auto; }
   .section-title { font-size: 1.1rem; font-weight: 700; color: var(--purple); margin-bottom: 16px; }
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .dash-card { background: white; border-radius: 16px; padding: 20px 16px; text-align: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: all 0.2s; }
+  .dash-card { background: white; border-radius: 16px; padding: 18px 12px; text-align: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: all 0.2s; }
   .dash-card:hover { transform: translateY(-2px); }
-  .dash-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
-  .dash-card .card-label { font-size: 0.85rem; font-weight: 700; }
-  .dash-card .card-sub { font-size: 0.72rem; color: var(--gray); margin-top: 4px; }
-
-  #screen-chat { }
+  .dash-card .card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .dash-card .card-label { font-size: 0.82rem; font-weight: 700; }
+  .dash-card .card-sub { font-size: 0.7rem; color: var(--gray); margin-top: 4px; }
+  .daily-tip-card { background: linear-gradient(135deg, #ffecd2, #fcb69f22); border: 1px solid #fcb69f; border-radius: 16px; padding: 16px; margin-bottom: 16px; }
+  .daily-tip-card .tip-header { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #c0392b; margin-bottom: 8px; font-size: 0.9rem; }
+  .daily-tip-card .tip-text { font-size: 0.85rem; line-height: 1.7; color: var(--text); }
   .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
   .chat-bubble { max-width: 82%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.7; }
   .bubble-ai { background: white; border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; align-self: flex-start; }
   .bubble-user { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border-radius: 18px 18px 4px 18px; align-self: flex-end; }
-  .chat-input-area { padding: 12px 16px; background: white; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
+  .chat-input-area { padding: 12px 16px; background: white; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-end; flex-shrink: 0; }
   .chat-input { flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 24px; font-size: 0.9rem; font-family: inherit; outline: none; resize: none; max-height: 100px; }
   .chat-input:focus { border-color: var(--pink-dark); }
   .send-btn { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .free-counter { background: var(--pink-light); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; margin: 8px 16px 0; font-size: 0.8rem; color: var(--pink-dark); font-weight: 600; text-align: center; }
+  .free-counter { background: var(--pink-light); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; margin: 8px 16px 0; font-size: 0.8rem; color: var(--pink-dark); font-weight: 600; text-align: center; flex-shrink: 0; }
   .typing-dots { display: flex; gap: 4px; padding: 8px 4px; align-items: center; }
   .typing-dots span { width: 8px; height: 8px; background: var(--pink-dark); border-radius: 50%; animation: bounce 1.2s infinite; }
   .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
   .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-8px)} }
-
   .paywall { flex: 1; padding: 32px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .paywall-icon { font-size: 4rem; margin-bottom: 16px; }
   .paywall h2 { font-size: 1.4rem; font-weight: 800; color: var(--purple); margin-bottom: 8px; }
   .paywall p { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.6; }
-
+  /* VACCINE */
   .vaccine-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .vaccine-reminder-box { background: var(--blue-light); border: 1px solid var(--blue); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .vaccine-reminder-box h3 { color: var(--blue); font-weight: 700; margin-bottom: 10px; font-size: 0.95rem; }
+  .reminder-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .reminder-row label { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+  .reminder-row input[type=date] { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.85rem; font-family: inherit; outline: none; flex: 1; min-width: 160px; }
+  .reminder-row input[type=date]:focus { border-color: var(--blue); }
+  .reminder-calc-btn { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 9px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .reminder-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; margin-bottom: 6px; font-size: 0.82rem; }
+  .reminder-item.upcoming { background: #eaf4fb; border: 1px solid #aed6f1; }
+  .reminder-item.today { background: #fef9e7; border: 1px solid var(--yellow); font-weight: 700; }
+  .reminder-item.tomorrow { background: #fdedec; border: 1px solid var(--red); font-weight: 700; }
+  .reminder-item.past { background: #f0f0f0; color: var(--gray); }
+  .reminder-badge { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+  .badge-tomorrow { background: var(--red); color: white; }
+  .badge-today { background: var(--yellow); color: white; }
+  .badge-done { background: var(--green); color: white; }
+  .badge-soon { background: var(--blue); color: white; }
   .vaccine-card { background: white; border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid var(--border); }
   .vaccine-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; }
   .vaccine-age { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border-radius: 8px; padding: 6px 10px; font-size: 0.8rem; font-weight: 700; min-width: 70px; text-align: center; }
@@ -99,7 +108,7 @@
   .vaccine-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--pink-light); font-size: 0.85rem; }
   .vaccine-item:last-child { border-bottom: none; }
   .vaccine-dot { width: 8px; height: 8px; background: var(--pink-dark); border-radius: 50%; flex-shrink: 0; }
-
+  /* MILESTONES */
   .milestone-body { padding: 16px; flex: 1; overflow-y: auto; }
   .stage-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
   .stage-tabs::-webkit-scrollbar { display: none; }
@@ -112,7 +121,7 @@
   .milestone-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 0.85rem; line-height: 1.5; }
   .m-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--pink-dark); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; }
   .m-check.done { background: var(--pink-dark); color: white; }
-
+  /* STORIES */
   .stories-body { padding: 16px; flex: 1; overflow-y: auto; }
   .story-card { background: white; border-radius: 16px; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer; transition: all 0.2s; }
   .story-card:hover { transform: translateY(-2px); }
@@ -126,7 +135,7 @@
   .story-lesson { background: var(--purple-light); border-right: 4px solid var(--purple); border-radius: 12px; padding: 16px; margin-top: 24px; }
   .story-lesson h4 { color: var(--purple); font-weight: 700; margin-bottom: 6px; }
   .story-lesson p { font-size: 0.85rem; line-height: 1.6; }
-
+  /* PLANS */
   .plans-body { padding: 20px; flex: 1; overflow-y: auto; }
   .plan-card { background: white; border-radius: 18px; padding: 20px; margin-bottom: 14px; border: 2px solid var(--border); }
   .plan-card.featured { border-color: var(--pink-dark); background: var(--pink-light); }
@@ -145,10 +154,9 @@
   .code-entry-row { display: flex; gap: 8px; }
   .code-entry input { flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.85rem; font-family: monospace; outline: none; }
   .code-entry button { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 10px 16px; cursor: pointer; font-size: 0.85rem; font-family: inherit; font-weight: 600; }
-
+  /* PROFILE */
   .profile-body { padding: 20px; flex: 1; overflow-y: auto; }
   .profile-hero { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); border-radius: 20px; padding: 24px; color: white; text-align: center; margin-bottom: 20px; }
-  .profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; margin-bottom: 12px; background: rgba(255,255,255,0.2); padding: 8px; }
   .profile-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
   .profile-stage-text { font-size: 0.85rem; opacity: 0.9; }
   .profile-status { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 12px; font-size: 0.8rem; margin-top: 8px; }
@@ -156,10 +164,10 @@
   .profile-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
   .profile-item:last-child { border-bottom: none; }
   .pil { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600; }
-  .renewal-banner { border-radius: 10px; padding: 10px 14px; margin: 0 0 14px; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; }
+  .renewal-banner { border-radius: 10px; padding: 10px 14px; margin: 0 0 10px; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; }
   .renewal-yellow { background: #fef9e7; border: 1px solid var(--yellow); color: #7d6608; }
   .renewal-red { background: #fdedec; border: 1px solid var(--red); color: var(--red); }
-
+  /* ADMIN */
   .admin-body { padding: 16px; flex: 1; overflow-y: auto; }
   .admin-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
   .stat-card { background: white; border-radius: 14px; padding: 16px; border: 1px solid var(--border); text-align: center; }
@@ -185,12 +193,65 @@
   .alert-item { background: #fdedec; border: 1px solid var(--red); border-radius: 10px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.82rem; }
   .alert-name { font-weight: 700; color: var(--red); }
   .alert-wa { background: #25d366; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.75rem; cursor: pointer; font-family: inherit; }
-
   .admin-login-body { padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; }
   .pin-input { padding: 14px 20px; border: 2px solid var(--border); border-radius: 14px; font-size: 1.2rem; text-align: center; letter-spacing: 8px; width: 200px; outline: none; font-family: monospace; margin-bottom: 8px; }
   .pin-input:focus { border-color: var(--pink-dark); }
   .pin-error { color: var(--red); font-size: 0.85rem; display: none; margin-bottom: 8px; }
-
+  /* PREGNANCY TRACKER */
+  .preg-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .week-selector { display: flex; align-items: center; justify-content: center; gap: 16px; background: white; border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); }
+  .week-arrow { background: var(--pink-light); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; color: var(--pink-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .week-display { text-align: center; }
+  .week-num { font-size: 2rem; font-weight: 800; color: var(--pink-dark); }
+  .week-label { font-size: 0.8rem; color: var(--gray); }
+  .week-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 14px; border: 1px solid var(--border); }
+  .week-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .week-emoji { font-size: 3rem; }
+  .week-card-title { font-size: 1.1rem; font-weight: 800; color: var(--purple); }
+  .week-card-sub { font-size: 0.8rem; color: var(--gray); margin-top: 2px; }
+  .week-section { margin-bottom: 14px; }
+  .week-section-title { font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; font-size: 0.9rem; }
+  .week-section p { font-size: 0.85rem; line-height: 1.7; color: var(--text); }
+  .week-tip { background: var(--purple-light); border-right: 4px solid var(--purple); border-radius: 10px; padding: 12px; font-size: 0.85rem; line-height: 1.6; }
+  .progress-bar-wrap { background: var(--pink-light); border-radius: 20px; height: 10px; margin: 8px 0; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--pink-dark), var(--purple)); border-radius: 20px; transition: width 0.4s; }
+  /* JOURNAL */
+  .journal-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .journal-add-btn { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; border: none; border-radius: 50px; padding: 12px 24px; font-size: 0.9rem; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; width: 100%; justify-content: center; }
+  .memory-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .memory-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .memory-tag { background: var(--pink-light); color: var(--pink-dark); border-radius: 8px; padding: 3px 10px; font-size: 0.75rem; font-weight: 700; }
+  .memory-date { font-size: 0.75rem; color: var(--gray); }
+  .memory-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .memory-note { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+  .memory-del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 1rem; padding: 4px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: flex; align-items: flex-end; justify-content: center; }
+  .modal-overlay.hidden { display: none; }
+  .modal-sheet { background: white; border-radius: 24px 24px 0 0; padding: 24px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
+  .modal-title { font-size: 1.1rem; font-weight: 800; color: var(--purple); margin-bottom: 16px; }
+  .modal-input { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.9rem; font-family: inherit; outline: none; margin-bottom: 12px; }
+  .modal-input:focus { border-color: var(--pink-dark); }
+  .modal-textarea { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.9rem; font-family: inherit; outline: none; resize: none; height: 80px; margin-bottom: 12px; }
+  .modal-textarea:focus { border-color: var(--pink-dark); }
+  .modal-select { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.9rem; font-family: inherit; outline: none; background: white; margin-bottom: 12px; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btns button { flex: 1; padding: 12px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; font-family: inherit; border: none; }
+  .modal-cancel { background: var(--border); color: var(--gray); }
+  .modal-save { background: linear-gradient(135deg, var(--pink-dark), var(--purple)); color: white; }
+  /* GROWTH TRACKER */
+  .growth-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .growth-add-btn { background: linear-gradient(135deg, var(--green), #2ecc71); color: white; border: none; border-radius: 50px; padding: 12px 24px; font-size: 0.9rem; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; width: 100%; justify-content: center; }
+  .growth-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .growth-stat { background: white; border-radius: 14px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+  .growth-stat-num { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+  .growth-stat-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+  .growth-entry { background: white; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .growth-entry-info { display: flex; gap: 16px; align-items: center; }
+  .growth-entry-date { font-size: 0.8rem; color: var(--gray); }
+  .growth-entry-vals { font-size: 0.9rem; font-weight: 700; }
+  .growth-chart { background: white; border-radius: 14px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); overflow-x: auto; }
+  .growth-chart h4 { font-weight: 700; color: var(--purple); margin-bottom: 12px; font-size: 0.9rem; }
+  canvas { max-width: 100%; }
   .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--purple); color: white; padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; z-index: 1000; animation: fadeInOut 2.5s ease; pointer-events: none; white-space: nowrap; }
   @keyframes fadeInOut { 0%{opacity:0;transform:translateX(-50%) translateY(10px)} 20%,80%{opacity:1;transform:translateX(-50%) translateY(0)} 100%{opacity:0} }
 </style>
@@ -200,7 +261,7 @@
 <!-- WELCOME -->
 <div id="screen-welcome" class="screen active">
   <img src="icon-512.png" class="welcome-img" onerror="this.style.display='none'">
-  <div class="welcome-logo" style="display:none">🌸</div>
+  <div style="font-size:5rem;animation:float 3s ease-in-out infinite;margin-bottom:16px">🌸</div>
   <div class="welcome-title">لولو وماما</div>
   <div class="welcome-tagline">من الحمل حتى سن الخامسة لصغيرك<br>رفيقتك في كل مرحلة 💕</div>
   <button class="btn btn-primary" onclick="showScreen('register')">ابدئي رحلتك 💕</button>
@@ -211,24 +272,30 @@
 <div id="screen-register" class="screen">
   <div class="header">
     <button class="back-btn" onclick="showScreen('welcome')">→</button>
-    <span class="logo">🌸</span>
-    <h1>إنشاء حسابك</h1>
+    <span class="logo">🌸</span><h1>إنشاء حسابك</h1>
   </div>
   <div class="register-body">
     <p style="color:var(--gray);font-size:0.85rem;margin-bottom:20px">أخبرينا عن وضعك لنقدم لك المحتوى المناسب</p>
     <div class="reg-choice">
       <div class="choice-card selected" id="choice-pregnant" onclick="selectChoice('pregnant')">
-        <span class="emoji" style="font-size:2.5rem;display:block;margin-bottom:8px">🤰</span>
+        <span style="font-size:2.5rem;display:block;margin-bottom:8px">🤰</span>
         <span style="font-size:0.95rem;font-weight:600">حامل</span>
       </div>
       <div class="choice-card" id="choice-mama" onclick="selectChoice('mama')">
-        <span class="emoji" style="font-size:2.5rem;display:block;margin-bottom:8px">👶</span>
+        <span style="font-size:2.5rem;display:block;margin-bottom:8px">👶</span>
         <span style="font-size:0.95rem;font-weight:600">أمّ</span>
       </div>
     </div>
     <div class="form-group">
       <label id="date-label">تاريخ الولادة المتوقع</label>
       <input type="date" id="reg-date">
+    </div>
+    <div class="form-group" id="week-group" style="display:none">
+      <label>أنتِ في الأسبوع:</label>
+      <select id="reg-week">
+        <option value="">اختاري الأسبوع</option>
+        ${Array.from({length:40},(_,i)=>`<option value="${i+1}">الأسبوع ${i+1}</option>`).join('')}
+      </select>
     </div>
     <div class="form-group">
       <label>اسمك (اختياري)</label>
@@ -245,48 +312,33 @@
     <div class="home-name" id="home-name">أمّ لولو 💕</div>
     <div class="home-stage" id="home-stage">🤰 مرحلة الحمل</div>
   </div>
-  <div id="home-banner"></div>
+  <div id="home-banners" style="padding:12px 16px 0"></div>
   <div class="home-content">
+    <div id="daily-tip-home"></div>
     <div class="section-title">ماذا تريدين اليوم؟</div>
     <div class="cards-grid">
-      <div class="dash-card" onclick="goToChat()">
-        <div class="card-icon">💬</div>
-        <div class="card-label">اسأليني</div>
-        <div class="card-sub">استشارة فورية</div>
-      </div>
-      <div class="dash-card" onclick="nav('vaccine')">
-        <div class="card-icon">💉</div>
-        <div class="card-label">التطعيمات</div>
-        <div class="card-sub">جدول PEV 2023</div>
-      </div>
-      <div class="dash-card" onclick="nav('milestones')">
-        <div class="card-icon">🌱</div>
-        <div class="card-label">مراحل النمو</div>
-        <div class="card-sub">تطور طفلك</div>
-      </div>
-      <div class="dash-card" onclick="nav('stories')">
-        <div class="card-icon">📖</div>
-        <div class="card-label">قصص تربوية</div>
-        <div class="card-sub">٤ قصص تعليمية</div>
-      </div>
+      <div class="dash-card" onclick="goToChat()"><div class="card-icon">💬</div><div class="card-label">اسأليني</div><div class="card-sub">استشارة فورية</div></div>
+      <div class="dash-card" onclick="nav('vaccine')"><div class="card-icon">💉</div><div class="card-label">التطعيمات</div><div class="card-sub">جدول PEV</div></div>
+      <div class="dash-card" onclick="nav('pregnancy')"><div class="card-icon">🤰</div><div class="card-label">الحمل أسبوعاً</div><div class="card-sub">تطور جنينك</div></div>
+      <div class="dash-card" onclick="nav('milestones')"><div class="card-icon">🌱</div><div class="card-label">مراحل النمو</div><div class="card-sub">تطور طفلك</div></div>
+      <div class="dash-card" onclick="nav('journal')"><div class="card-icon">📝</div><div class="card-label">مذكرة اللحظات</div><div class="card-sub">ذكريات طفلك</div></div>
+      <div class="dash-card" onclick="nav('growth')"><div class="card-icon">⚖️</div><div class="card-label">متابعة النمو</div><div class="card-sub">الوزن والطول</div></div>
+      <div class="dash-card" onclick="nav('stories')"><div class="card-icon">📖</div><div class="card-label">قصص تربوية</div><div class="card-sub">١٦ قصة</div></div>
+      <div class="dash-card" onclick="nav('nutrition')"><div class="card-icon">🥗</div><div class="card-label">تغذية طفلك</div><div class="card-sub">بالمرحلة والموضوع</div></div>
     </div>
   </div>
   <div class="bottom-nav">
     <button class="nav-item active" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
 
 <!-- CHAT -->
 <div id="screen-chat" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('home')">→</button>
-    <span class="logo">💬</span>
-    <h1>اسأليني</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">💬</span><h1>اسأليني</h1></div>
   <div id="chat-counter" class="free-counter">لديك <span id="free-left">3</span> استشارات مجانية</div>
   <div class="chat-body" id="chat-body">
     <div class="chat-bubble bubble-ai">أهلاً! أنا مساعدتك في لولو وماما 🌸 يمكنك سؤالي عن الحمل، تغذية الطفل، النوم، النمو، وأي قلق يراودك. أنا هنا! 💕</div>
@@ -298,87 +350,138 @@
   </div>
 </div>
 
+<!-- PREGNANCY TRACKER -->
+<div id="screen-pregnancy" class="screen">
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">🤰</span><h1>الحمل أسبوعاً بأسبوع</h1></div>
+  <div class="preg-body">
+    <div class="week-selector">
+      <button class="week-arrow" onclick="changeWeek(-1)">‹</button>
+      <div class="week-display">
+        <div class="week-num" id="week-num">1</div>
+        <div class="week-label">من أصل 40 أسبوع</div>
+        <div style="margin-top:8px;width:180px">
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="preg-progress" style="width:2.5%"></div></div>
+        </div>
+      </div>
+      <button class="week-arrow" onclick="changeWeek(1)">›</button>
+    </div>
+    <div id="week-content"></div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
 <!-- VACCINE -->
 <div id="screen-vaccine" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('home')">→</button>
-    <span class="logo">💉</span><h1>جدول التطعيمات</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">💉</span><h1>جدول التطعيمات</h1></div>
   <div class="vaccine-body" id="vaccine-body"></div>
   <div class="bottom-nav">
     <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
 
 <!-- MILESTONES -->
 <div id="screen-milestones" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('home')">→</button>
-    <span class="logo">🌱</span><h1>مراحل النمو</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">🌱</span><h1>مراحل النمو</h1></div>
   <div class="milestone-body" id="milestone-body"></div>
   <div class="bottom-nav">
     <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
 
 <!-- STORIES -->
 <div id="screen-stories" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('home')">→</button>
-    <span class="logo">📖</span><h1>قصص تربوية</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">📖</span><h1>قصص تربوية</h1></div>
   <div class="stories-body" id="stories-body"></div>
   <div class="bottom-nav">
     <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item active" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
 
 <!-- STORY READER -->
 <div id="screen-story-reader" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('stories')">→</button>
-    <span class="logo">📖</span><h1 id="reader-header">القصة</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('stories')">→</button><span class="logo">📖</span><h1 id="reader-header">القصة</h1></div>
   <div class="story-reader-body" id="story-reader-body"></div>
+</div>
+
+<!-- NUTRITION -->
+<div id="screen-nutrition" class="screen">
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">🥗</span><h1>تغذية طفلك</h1></div>
+  <div class="milestone-body" id="nutrition-body"></div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- JOURNAL -->
+<div id="screen-journal" class="screen">
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">📝</span><h1>مذكرة اللحظات</h1></div>
+  <div class="journal-body">
+    <button class="journal-add-btn" onclick="openJournalModal()">✨ أضيفي ذكرى جديدة</button>
+    <div id="journal-list"></div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item active" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
+</div>
+
+<!-- GROWTH TRACKER -->
+<div id="screen-growth" class="screen">
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">⚖️</span><h1>متابعة النمو</h1></div>
+  <div class="growth-body">
+    <button class="growth-add-btn" onclick="openGrowthModal()">➕ إضافة قياس جديد</button>
+    <div class="growth-stats" id="growth-stats"></div>
+    <div class="growth-chart" id="growth-chart-box" style="display:none">
+      <h4>📈 منحنى الوزن (كغ)</h4>
+      <canvas id="growth-canvas" height="160"></canvas>
+    </div>
+    <div id="growth-list"></div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+    <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item active" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+  </div>
 </div>
 
 <!-- PLANS -->
 <div id="screen-plans" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('home')">→</button>
-    <span class="logo">⭐</span><h1>الباقات</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('home')">→</button><span class="logo">⭐</span><h1>الباقات</h1></div>
   <div class="plans-body">
     <div style="text-align:center;margin-bottom:24px">
       <h2 style="font-size:1.3rem;font-weight:800;color:var(--purple);margin-bottom:8px">اختاري باقتك 💕</h2>
       <p style="font-size:0.85rem;color:var(--gray)">استشارات غير محدودة مع مساعدتك الذكية</p>
     </div>
-    <div class="plan-card">
-      <div class="plan-name">شهري</div>
-      <div class="plan-price">500 <span>دج / شهر</span></div>
-    </div>
-    <div class="plan-card featured">
-      <div class="plan-badge">الأكثر شعبية ✨</div>
-      <div class="plan-name">3 أشهر</div>
-      <div class="plan-price">1200 <span>دج / 3 أشهر</span></div>
-    </div>
-    <div class="plan-card">
-      <div class="plan-name">سنوي</div>
-      <div class="plan-price">4000 <span>دج / سنة</span></div>
-    </div>
+    <div class="plan-card"><div class="plan-name">شهري</div><div class="plan-price">500 <span>دج / شهر</span></div></div>
+    <div class="plan-card featured"><div class="plan-badge">الأكثر شعبية ✨</div><div class="plan-name">3 أشهر</div><div class="plan-price">1200 <span>دج / 3 أشهر</span></div></div>
+    <div class="plan-card"><div class="plan-name">سنوي</div><div class="plan-price">4000 <span>دج / سنة</span></div></div>
     <div class="payment-box">
       <h3>💳 طريقة الدفع</h3>
       <div class="payment-step"><div class="step-num">1</div><div>أرسلي المبلغ عبر CCP:<br><span class="ccp-num">00799999002273364956</span></div></div>
@@ -398,8 +501,8 @@
   <div class="bottom-nav">
     <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item active" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
@@ -409,7 +512,6 @@
   <div class="header"><span class="logo">👤</span><h1>ملفي</h1></div>
   <div class="profile-body">
     <div class="profile-hero">
-      <img src="icon-192.png" class="profile-img" onerror="this.style.display='none'">
       <div style="font-size:3.5rem;margin-bottom:12px">🌸</div>
       <div class="profile-name" id="profile-name">أمّ لولو</div>
       <div class="profile-stage-text" id="profile-stage-text">مرحلتك</div>
@@ -419,7 +521,9 @@
     <div class="profile-section">
       <div class="profile-item" onclick="nav('plans')"><div class="pil"><span>⭐</span><span>الاشتراك والباقات</span></div><span style="color:var(--gray)">‹</span></div>
       <div class="profile-item" onclick="nav('vaccine')"><div class="pil"><span>💉</span><span>جدول التطعيمات</span></div><span style="color:var(--gray)">‹</span></div>
-      <div class="profile-item" onclick="nav('milestones')"><div class="pil"><span>🌱</span><span>مراحل النمو</span></div><span style="color:var(--gray)">‹</span></div>
+      <div class="profile-item" onclick="nav('pregnancy')"><div class="pil"><span>🤰</span><span>متابعة الحمل</span></div><span style="color:var(--gray)">‹</span></div>
+      <div class="profile-item" onclick="nav('journal')"><div class="pil"><span>📝</span><span>مذكرة اللحظات</span></div><span style="color:var(--gray)">‹</span></div>
+      <div class="profile-item" onclick="nav('growth')"><div class="pil"><span>⚖️</span><span>متابعة النمو</span></div><span style="color:var(--gray)">‹</span></div>
     </div>
     <div class="profile-section">
       <div class="profile-item" onclick="showAdminLogin()"><div class="pil"><span>🔐</span><span>لوحة الإدارة</span></div><span style="color:var(--gray)">‹</span></div>
@@ -428,18 +532,15 @@
   <div class="bottom-nav">
     <button class="nav-item" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
     <button class="nav-item" onclick="goToChat()"><span class="nav-icon">💬</span><span class="nav-label">اسأليني</span></button>
-    <button class="nav-item" onclick="nav('stories')"><span class="nav-icon">📖</span><span class="nav-label">قصص</span></button>
-    <button class="nav-item" onclick="nav('plans')"><span class="nav-icon">⭐</span><span class="nav-label">الباقات</span></button>
+    <button class="nav-item" onclick="nav('journal')"><span class="nav-icon">📝</span><span class="nav-label">مذكرة</span></button>
+    <button class="nav-item" onclick="nav('growth')"><span class="nav-icon">⚖️</span><span class="nav-label">النمو</span></button>
     <button class="nav-item active" onclick="nav('profile')"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
   </div>
 </div>
 
 <!-- ADMIN LOGIN -->
 <div id="screen-admin-login" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('profile')">→</button>
-    <span class="logo">🔐</span><h1>لوحة الإدارة</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('profile')">→</button><span class="logo">🔐</span><h1>لوحة الإدارة</h1></div>
   <div class="admin-login-body">
     <div style="font-size:3rem;margin-bottom:16px">🔐</div>
     <h2 style="font-size:1.3rem;font-weight:800;color:var(--purple);margin-bottom:8px">دخول المشرف</h2>
@@ -452,10 +553,7 @@
 
 <!-- ADMIN PANEL -->
 <div id="screen-admin" class="screen">
-  <div class="header">
-    <button class="back-btn" onclick="nav('profile')">→</button>
-    <span class="logo">📊</span><h1>لوحة الإدارة</h1>
-  </div>
+  <div class="header"><button class="back-btn" onclick="nav('profile')">→</button><span class="logo">📊</span><h1>لوحة الإدارة</h1></div>
   <div class="admin-body">
     <div class="admin-stats" id="admin-stats"></div>
     <div class="admin-section">
@@ -491,6 +589,45 @@
   </div>
 </div>
 
+<!-- JOURNAL MODAL -->
+<div class="modal-overlay hidden" id="journal-modal">
+  <div class="modal-sheet">
+    <div class="modal-title">✨ إضافة ذكرى جديدة</div>
+    <select class="modal-select" id="mem-tag">
+      <option value="ابتسامة أولى">😊 أول ابتسامة</option>
+      <option value="كلمة أولى">🗣️ أول كلمة</option>
+      <option value="خطوة أولى">👣 أول خطوة</option>
+      <option value="سنّة أولى">🦷 أول سنّة</option>
+      <option value="ضحكة أولى">😂 أول ضحكة</option>
+      <option value="حمام أول">🛁 أول حمام</option>
+      <option value="لعبة مفضلة">🧸 لعبة مفضلة</option>
+      <option value="لحظة خاصة">💕 لحظة خاصة</option>
+    </select>
+    <input class="modal-input" id="mem-title" placeholder="عنوان الذكرى (مثال: قال ماما للمرة الأولى)">
+    <textarea class="modal-textarea" id="mem-note" placeholder="تفاصيل اللحظة... (اختياري)"></textarea>
+    <input class="modal-input" type="date" id="mem-date">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeJournalModal()">إلغاء</button>
+      <button class="modal-save" onclick="saveMemory()">حفظ 💕</button>
+    </div>
+  </div>
+</div>
+
+<!-- GROWTH MODAL -->
+<div class="modal-overlay hidden" id="growth-modal">
+  <div class="modal-sheet">
+    <div class="modal-title">➕ إضافة قياس جديد</div>
+    <input class="modal-input" type="date" id="growth-date">
+    <input class="modal-input" type="number" id="growth-weight" placeholder="الوزن (كغ) — مثال: 7.5" step="0.1" min="0" max="30">
+    <input class="modal-input" type="number" id="growth-height" placeholder="الطول (سم) — مثال: 68" step="0.5" min="0" max="130">
+    <input class="modal-input" id="growth-note" placeholder="ملاحظة (اختياري)">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeGrowthModal()">إلغاء</button>
+      <button class="modal-save" onclick="saveGrowth()">حفظ ⚖️</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const ADMIN_CODE = '04012025';
 const WA = '213657062825';
@@ -498,6 +635,7 @@ const GROQ_KEY = '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';
 
 let S = {
   userType: 'pregnant', userName: '', userDate: '',
+  pregnancyWeek: 8,
   freeChats: 3, subscribed: false, subExpiry: null,
   subscribers: [
     { name: 'فاطمة', phone: '0555123456', plan: 'LLM3', expiry: new Date(Date.now() + 2*864e5) },
@@ -505,10 +643,13 @@ let S = {
     { name: 'نور', phone: '0770987654', plan: 'LLM1', expiry: new Date(Date.now() - 2*864e5) },
   ],
   lastCode: null, lastName: '', lastPlan: '', lastExpiry: null,
-  chatHistory: []
+  chatHistory: [],
+  vaccineDateInput: '',
+  memories: [],
+  growthRecords: []
 };
 
-// NAV
+// ── NAV ──────────────────────────────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
@@ -521,31 +662,42 @@ function nav(id) {
   if (id==='vaccine') renderVaccine();
   if (id==='milestones') renderMilestones();
   if (id==='stories') renderStories();
+  if (id==='nutrition') renderNutrition();
   if (id==='admin') renderAdmin();
+  if (id==='pregnancy') renderPregnancy();
+  if (id==='journal') renderJournal();
+  if (id==='growth') renderGrowth();
 }
 
-// REGISTER
+// ── REGISTER ─────────────────────────────────────────────────────────────────
 function selectChoice(t) {
   S.userType = t;
   document.getElementById('choice-pregnant').classList.toggle('selected', t==='pregnant');
   document.getElementById('choice-mama').classList.toggle('selected', t==='mama');
   document.getElementById('date-label').textContent = t==='pregnant' ? 'تاريخ الولادة المتوقع' : 'تاريخ ميلاد طفلك';
+  document.getElementById('week-group').style.display = t==='pregnant' ? 'block' : 'none';
 }
 function completeRegistration() {
   S.userName = document.getElementById('reg-name').value.trim();
   S.userDate = document.getElementById('reg-date').value;
+  const wk = document.getElementById('reg-week').value;
+  if (wk) S.pregnancyWeek = parseInt(wk);
   updateHome(); nav('home');
 }
 function loginReturning() { updateHome(); nav('home'); }
 
-// HOME
+// ── HOME ─────────────────────────────────────────────────────────────────────
 function updateHome() {
   document.getElementById('home-name').textContent = S.userName ? `أهلاً ${S.userName} 💕` : 'أهلاً بك 💕';
   document.getElementById('home-stage').textContent = stageText();
-  document.getElementById('home-banner').innerHTML = bannerHTML();
+  // banners
+  let banners = bannerHTML() + vaccineBannerHTML();
+  document.getElementById('home-banners').innerHTML = banners;
+  // daily tip
+  document.getElementById('daily-tip-home').innerHTML = dailyTipHTML();
 }
 function stageText() {
-  if (S.userType==='pregnant') return '🤰 مرحلة الحمل';
+  if (S.userType==='pregnant') return `🤰 الأسبوع ${S.pregnancyWeek} من الحمل`;
   if (!S.userDate) return '👶 مرحلة الطفولة';
   const m = monthsOld();
   return m < 12 ? `👶 ${m} أشهر` : `🌟 ${Math.floor(m/12)} سنة`;
@@ -557,109 +709,82 @@ function monthsOld() {
 function bannerHTML() {
   if (!S.subscribed || !S.subExpiry) return '';
   const d = Math.ceil((S.subExpiry - Date.now()) / 864e5);
-  if (d<=0) return `<div class="renewal-banner renewal-red" style="margin:12px 16px 0">🔴 انتهى اشتراكك — جددي الآن</div>`;
-  if (d<=3) return `<div class="renewal-banner renewal-red" style="margin:12px 16px 0">🔴 اشتراكك ينتهي خلال ${d} أيام!</div>`;
-  if (d<=7) return `<div class="renewal-banner renewal-yellow" style="margin:12px 16px 0">⚠️ اشتراكك ينتهي خلال ${d} أيام</div>`;
+  if (d<=0) return `<div class="renewal-banner renewal-red">🔴 انتهى اشتراكك — جددي الآن</div>`;
+  if (d<=3) return `<div class="renewal-banner renewal-red">🔴 اشتراكك ينتهي خلال ${d} أيام!</div>`;
+  if (d<=7) return `<div class="renewal-banner renewal-yellow">⚠️ اشتراكك ينتهي خلال ${d} أيام</div>`;
   return '';
 }
 
-// CHAT
-function goToChat() { showScreen('chat'); updateChatUI(); }
-function updateChatUI() {
-  const blocked = !S.subscribed && S.freeChats <= 0;
-  const expired = S.subscribed && S.subExpiry && S.subExpiry < Date.now();
-  const pw = document.getElementById('chat-paywall');
-  const ia = document.getElementById('chat-input-area');
-  const cc = document.getElementById('chat-counter');
-  if (blocked || expired) {
-    ia.style.display = 'none'; cc.style.display = 'none';
-    pw.innerHTML = `<div class="paywall">
-      <div class="paywall-icon">${expired?'⏰':'🔒'}</div>
-      <h2>${expired?'انتهى اشتراكك':'استنفذت استشاراتك المجانية'}</h2>
-      <p>${expired?'جددي اشتراكك للاستمرار':'اشتركي للحصول على استشارات غير محدودة 💕'}</p>
-      <button class="btn btn-primary" onclick="nav('plans')">اشتركي الآن ⭐</button></div>`;
-  } else {
-    ia.style.display = 'flex'; pw.innerHTML = '';
-    cc.style.display = S.subscribed ? 'none' : 'block';
-    document.getElementById('free-left').textContent = S.freeChats;
-  }
-}
-
-async function sendMessage() {
-  const inp = document.getElementById('chat-input');
-  const msg = inp.value.trim();
-  if (!msg) return;
-  if (!S.subscribed && S.freeChats <= 0) { updateChatUI(); return; }
-  if (!S.subscribed) { S.freeChats--; document.getElementById('free-left').textContent = S.freeChats; }
-  addBubble(msg, 'user');
-  inp.value = '';
-  S.chatHistory.push({ role: 'user', content: msg });
-
-  const typing = document.createElement('div');
-  typing.className = 'chat-bubble bubble-ai';
-  typing.id = 'typing';
-  typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-  document.getElementById('chat-body').appendChild(typing);
-  scrollChat();
-
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 300,
-        messages: [
-          { role: 'system', content: 'أنتِ مساعدة طبية ودية متخصصة في الحمل ورعاية الأطفال حتى سن 5 سنوات. تتحدثين بالعربية الفصحى البسيطة مع مراعاة السياق الجزائري. ردودك دافئة وعملية ولا تتجاوز 150 كلمة. دائماً تختمين بتذكير لطيف باستشارة الطبيب عند الضرورة.' },
-          ...S.chatHistory.slice(-6)
-        ]
-      })
-    });
-    const data = await res.json();
-    document.getElementById('typing')?.remove();
-    const reply = data.choices?.[0]?.message?.content || 'عذراً، حدث خطأ. حاولي مرة أخرى.';
-    S.chatHistory.push({ role: 'assistant', content: reply });
-    addBubble(reply, 'ai');
-  } catch(e) {
-    document.getElementById('typing')?.remove();
-    addBubble('عذراً، حدث خطأ في الاتصال. تأكدي من الإنترنت وحاولي مجدداً.', 'ai');
-  }
-  updateChatUI(); scrollChat();
-}
-
-function addBubble(text, who) {
-  const d = document.createElement('div');
-  d.className = `chat-bubble bubble-${who}`;
-  d.textContent = text;
-  document.getElementById('chat-body').appendChild(d);
-  scrollChat();
-}
-function scrollChat() {
-  const b = document.getElementById('chat-body');
-  setTimeout(() => b.scrollTop = b.scrollHeight, 50);
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const inp = document.getElementById('chat-input');
-  if (inp) inp.addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
-});
-
-// VACCINE
-const vaccineData = [
-  { age: 'عند الولادة', v: ['BCG — السل', 'VPO 0 — شلل الأطفال الفموي', 'VHB 1 — التهاب الكبد B'] },
-  { age: 'الشهر الثالث', v: ['DTC-Hib-HBV 1', 'VPO 1', 'VPI 1 — شلل الأطفال المحقون', 'PCV1 — المكورات الرئوية', 'Rota 1 — الروتا'] },
-  { age: 'الشهر الرابع', v: ['DTC-Hib-HBV 2', 'VPO 2', 'VPI 2', 'PCV2', 'Rota 2'] },
-  { age: 'الشهر الخامس', v: ['DTC-Hib-HBV 3', 'VPO 3', 'VPI 3', 'PCV3'] },
-  { age: '9 أشهر', v: ['VAR — الحصبة', 'VAA — الحمى الصفراء'] },
-  { age: '12 شهراً', v: ['RR — الحصبة والحصبة الألمانية', 'PCV4'] },
-  { age: '18 شهراً', v: ['DTC-Hib-HBV Rappel', 'VPO Rappel', 'VPI Rappel'] },
-  { age: '6 سنوات', v: ['DT — الدفتيريا والكزاز', 'VPO'] },
-  { age: '11-13 سنة', v: ['Td — الدفتيريا والكزاز', 'VPO'] },
+// ── DAILY TIP ────────────────────────────────────────────────────────────────
+const dailyTips = [
+  { emoji:'💧', text:'اشربي 8-10 أكواب ماء يومياً. الترطيب الجيد يحسّن الطاقة ويدعم إنتاج الحليب.' },
+  { emoji:'🚶', text:'المشي 20 دقيقة يومياً يخفض توتر الأم ويساعد على نوم أفضل للطفل.' },
+  { emoji:'🌙', text:'نومي حين ينام طفلك. النوم المتقطع يؤثر على المزاج والصبر — راحتك أولاً.' },
+  { emoji:'🥦', text:'أضيفي الخضار الخضراء لوجبة واحدة كل يوم — الحديد والفولات مهمان جداً.' },
+  { emoji:'🤗', text:'الاحتضان يرفع الأوكسيتوسين لدى الطفل والأم معاً — احضنيه كثيراً!' },
+  { emoji:'📖', text:'القراءة بصوت عالٍ للطفل من أول يوم تبني مفرداته اللغوية قبل أن يتكلم.' },
+  { emoji:'🎵', text:'الأغاني والأناشيد تنمّي الذاكرة والإيقاع لدى الرضيع بشكل رائع.' },
+  { emoji:'☀️', text:'التعرض للشمس الصباحية 10-15 دقيقة يعزز فيتامين د لك ولطفلك.' },
+  { emoji:'😮‍💨', text:'5 أنفاس عميقة حين تشعرين بالإرهاق — هذا يعيد التوازن خلال ثوانٍ.' },
+  { emoji:'💬', text:'تحدثي لطفلك أثناء الروتين اليومي — كل كلمة تسمعها تبني دماغه.' },
+  { emoji:'🌿', text:'العسل الطبيعي مفيد جداً — لكن لا تعطيه لطفل أقل من سنة أبداً.' },
+  { emoji:'🧠', text:'اللعب الحر بدون شاشات أهم للدماغ النامي من أي تطبيق تعليمي.' },
+  { emoji:'🫶', text:'الاستجابة لبكاء طفلك لا تدلّله — بل تبني ثقته بالعالم.' },
+  { emoji:'🍋', text:'فيتامين C يعزز امتصاص الحديد — أضيفي عصير ليمون على وجبات الحديد.' },
+  { emoji:'🛁', text:'حمام دافئ قبل النوم بساعة يساعد الطفل على الاسترخاء والنوم بسهولة.' },
 ];
+function dailyTipHTML() {
+  const idx = new Date().getDate() % dailyTips.length;
+  const tip = dailyTips[idx];
+  return `<div class="daily-tip-card">
+    <div class="tip-header">${tip.emoji} نصيحة اليوم</div>
+    <div class="tip-text">${tip.text}</div>
+  </div>`;
+}
+
+// ── VACCINE ───────────────────────────────────────────────────────────────────
+const vaccineData = [
+  { age: 'عند الولادة', v: ['BCG — السل', 'VPO 0 — شلل الأطفال الفموي', 'HBV — التهاب الكبد B'] },
+  { age: '2 أشهر', v: ['DTCaVPI-Hib-HBV', 'VPC — المكورات الرئوية', 'VPO'] },
+  { age: '4 أشهر', v: ['DTCaVPI-Hib-HBV', 'VPC — المكورات الرئوية', 'VPO'] },
+  { age: '11 شهراً', v: ['ROR — الحصبة والنكاف والحصبة الألمانية'] },
+  { age: '12 شهراً', v: ['DTCaVPI-Hib-HBV', 'VPC — المكورات الرئوية', 'VPO'] },
+  { age: '18 شهراً', v: ['ROR — الحصبة والنكاف والحصبة الألمانية (جرعة ثانية)'] },
+];
+const reminderSchedule = [
+  { label: 'عند الولادة', vaccines: 'BCG، VPO 0، HBV', daysFromBirth: 0 },
+  { label: '2 أشهر', vaccines: 'DTCaVPI-Hib-HBV، VPC، VPO', daysFromBirth: 61 },
+  { label: '4 أشهر', vaccines: 'DTCaVPI-Hib-HBV، VPC، VPO', daysFromBirth: 122 },
+  { label: '11 شهراً', vaccines: 'ROR', daysFromBirth: 335 },
+  { label: '12 شهراً', vaccines: 'DTCaVPI-Hib-HBV، VPC، VPO', daysFromBirth: 365 },
+  { label: '18 شهراً', vaccines: 'ROR (جرعة ثانية)', daysFromBirth: 548 },
+];
+function vaccineBannerHTML() {
+  if (!S.vaccineDateInput) return '';
+  const firstVaxDate = new Date(S.vaccineDateInput);
+  const birthDate = new Date(firstVaxDate.getTime() - 61 * 864e5);
+  const today = new Date(); today.setHours(0,0,0,0);
+  for (const r of reminderSchedule) {
+    const d = new Date(birthDate.getTime() + r.daysFromBirth * 864e5);
+    d.setHours(0,0,0,0);
+    const diff = Math.round((d - today) / 864e5);
+    if (diff === 1) return `<div class="renewal-banner renewal-red">💉 غداً: تطعيم ${r.label} — ${r.vaccines}</div>`;
+    if (diff === 0) return `<div class="renewal-banner renewal-yellow">💉 اليوم: تطعيم ${r.label} — ${r.vaccines}</div>`;
+  }
+  return '';
+}
 function renderVaccine() {
-  document.getElementById('vaccine-body').innerHTML = vaccineData.map((v,i) => `
+  const reminderBox = `<div class="vaccine-reminder-box">
+    <h3>🔔 مواعيد تطعيم طفلك</h3>
+    <p style="font-size:0.8rem;color:var(--gray);margin-bottom:10px">أدخلي تاريخ أول تطعيم (الشهر الثاني) وسنحسب باقي المواعيد تلقائياً</p>
+    <div class="reminder-row">
+      <label>تاريخ تطعيم الشهر الثاني:</label>
+      <input type="date" id="vax-date-input">
+      <button class="reminder-calc-btn" onclick="calcReminderDates()">احسبي المواعيد ✨</button>
+    </div>
+    <div id="reminder-schedule"></div>
+  </div>`;
+  const cards = vaccineData.map((v,i) => `
     <div class="vaccine-card">
       <div class="vaccine-header" onclick="toggleV(${i})">
         <div class="vaccine-age">${v.age}</div>
@@ -670,17 +795,116 @@ function renderVaccine() {
         ${v.v.map(x=>`<div class="vaccine-item"><div class="vaccine-dot"></div><div>${x}</div></div>`).join('')}
       </div>
     </div>`).join('');
+  document.getElementById('vaccine-body').innerHTML = reminderBox + cards;
+  const inp = document.getElementById('vax-date-input');
+  if (inp && S.vaccineDateInput) { inp.value = S.vaccineDateInput; calcReminderDates(); }
 }
-function toggleV(i) {
-  const d = document.getElementById('vd-'+i), a = document.getElementById('va-'+i);
-  a.textContent = d.classList.toggle('open') ? '▲' : '▼';
+function calcReminderDates() {
+  const inp = document.getElementById('vax-date-input');
+  if (!inp||!inp.value){showToast('أدخلي تاريخ تطعيم الشهر الثاني أولاً');return;}
+  S.vaccineDateInput = inp.value;
+  const birthDate = new Date(new Date(inp.value).getTime() - 61*864e5);
+  const today = new Date(); today.setHours(0,0,0,0);
+  let html = '';
+  for (const r of reminderSchedule) {
+    const d = new Date(birthDate.getTime() + r.daysFromBirth*864e5);
+    d.setHours(0,0,0,0);
+    const diff = Math.round((d - today)/864e5);
+    let cls='upcoming', badge='';
+    if(diff<0){cls='past';badge=`<span class="reminder-badge badge-done">✅ مضى</span>`;}
+    else if(diff===0){cls='today';badge=`<span class="reminder-badge badge-today">اليوم!</span>`;}
+    else if(diff===1){cls='tomorrow';badge=`<span class="reminder-badge badge-tomorrow">غداً ⚠️</span>`;}
+    else if(diff<=7){badge=`<span class="reminder-badge badge-soon">خلال ${diff} أيام</span>`;}
+    html+=`<div class="reminder-item ${cls}"><div><div style="font-weight:700">${r.label}</div><div style="font-size:0.75rem;color:var(--gray)">${r.vaccines}</div><div style="font-size:0.75rem;margin-top:2px">${fmtDate(d)}</div></div>${badge}</div>`;
+  }
+  document.getElementById('reminder-schedule').innerHTML = html;
+  updateHome();
+}
+function toggleV(i){const d=document.getElementById('vd-'+i),a=document.getElementById('va-'+i);a.textContent=d.classList.toggle('open')?'▲':'▼';}
+
+// ── PREGNANCY WEEK TRACKER ───────────────────────────────────────────────────
+const weekData = {
+  1:  { emoji:'🌱', size:'بذرة صغيرة', baby:'الإخصاب لم يحدث بعد — جسمك يستعد', mama:'دورتك الشهرية انتهت للتو', tip:'ابدئي بحمض الفوليك 400 ميكروغرام يومياً' },
+  2:  { emoji:'🌱', size:'بذرة', baby:'البويضة تنضج استعداداً للإخصاب', mama:'قد تشعرين بألم خفيف في الحوض', tip:'أوقفي الكافيين والكحول تحسباً' },
+  3:  { emoji:'🫐', size:'بذرة الخشخاش', baby:'الإخصاب حدث! الجنين يسافر إلى الرحم', mama:'قد تلاحظين تبقيعاً خفيفاً — هذا طبيعي', tip:'اتركي الاختبار ليومين إضافيين' },
+  4:  { emoji:'💊', size:'حبة دواء صغيرة (2 مم)', baby:'الجنين يزرع نفسه في الرحم', mama:'قد تبدأ الغثيان والتعب المبكر', tip:'ابدئي بالفيتامينات قبل الولادة' },
+  5:  { emoji:'🫘', size:'حبة سمسم (3 مم)', baby:'يبدأ تشكّل القلب والدماغ والعمود الفقري', mama:'ثديان متورمان — هذا طبيعي جداً', tip:'تجنبي الجبن الطري والأسماك النيئة' },
+  6:  { emoji:'🫛', size:'حبة عدس (6 مم)', baby:'ينبض القلب لأول مرة! الأطراف تبدأ بالظهور', mama:'الغثيان الصباحي في أشده', tip:'البسكويت قبل النهوض من السرير يخفف الغثيان' },
+  7:  { emoji:'🫐', size:'حبة توت (13 مم)', baby:'الدماغ ينمو بسرعة مذهلة — 100 خلية عصبية في الثانية', mama:'تكثر الزيارة للحمام — الكلى تعمل بجد', tip:'اشربي الماء على فترات وليس دفعة واحدة' },
+  8:  { emoji:'🍇', size:'حبة عنب (2 سم)', baby:'جميع الأعضاء الرئيسية تكوّنت، الجنين يتحرك', mama:'متعب؟ طبيعي — مستوى البروجسترون مرتفع', tip:'النوم على الجانب الأيسر يحسّن الدورة الدموية' },
+  9:  { emoji:'🍒', size:'حبة كرز (2.5 سم)', baby:'تبدأ ملامح الوجه — الأذنان، الأنف، الشفتان', mama:'انتبهي: احذري من التلوي والرياضة الشاقة', tip:'زيارتك الأولى للطبيب هذا الأسبوع مهمة جداً' },
+  10: { emoji:'🍓', size:'فراولة صغيرة (3 سم)', baby:'الجنين يبتلع ويتحرك — لكن لا تشعرين بعد', mama:'ارتفاع ضغط؟ قيسيه في كل زيارة', tip:'الإيكو الأول يظهر عادة بين 10-14 أسبوع' },
+  11: { emoji:'🫚', size:'ليمونة صغيرة (4 سم)', baby:'الأصابع منفصلة والأظافر تبدأ بالنمو', mama:'الغثيان يبدأ بالتراجع لدى كثيرات', tip:'ابدئي بتمارين كيغل لتقوية عضلات قاع الحوض' },
+  12: { emoji:'🍋', size:'ليمونة (5.4 سم، 58 غ)', baby:'الأعضاء التناسلية تبدأ بالتشكل — ذكر أم أنثى؟', mama:'انتهى الثلث الأول — مبروك! 🎉', tip:'هذا وقت إخبار العائلة إن أردت' },
+  13: { emoji:'🍑', size:'خوخة صغيرة (7 سم، 23 غ)', baby:'بصمات الأصابع تكتملت — هويته الفريدة!', mama:'طاقتك ترتفع مجدداً في الثلث الثاني', tip:'الإيكو المورفولوجي بين الأسبوع 20-24' },
+  14: { emoji:'🥝', size:'كيوي (8.7 سم، 43 غ)', baby:'يمص إبهامه ويعبث بالحبل السري', mama:'قد يزداد الشهية — كلي بشكل متوازن', tip:'تجنبي الاستلقاء على ظهرك لفترات طويلة' },
+  15: { emoji:'🍎', size:'تفاحة (10 سم، 70 غ)', baby:'يمكنه سماع صوتك — تحدثي إليه!', mama:'قد تشعرين بفرقعة خفيفة — بداية الحركات', tip:'دهني بطنك بكريم مرطب لتجنب علامات التمدد' },
+  16: { emoji:'🥑', size:'أفوكادو (11.6 سم، 100 غ)', baby:'عيناه تتحرك وإن كانتا مغلقتين', mama:'ترقبي أول ركلة خلال أسابيع!', tip:'حركة المواصلات والسفر الطويل — استريحي كل ساعتين' },
+  17: { emoji:'🍐', size:'إجاصة (13 سم، 140 غ)', baby:'يكوّن طبقة دهنية تحمل حرارته', mama:'قد يزداد معدل ضربات قلبك', tip:'توسدي بوسادة بين ركبتيك لراحة أفضل' },
+  18: { emoji:'🫑', size:'فلفلة (14.2 سم، 190 غ)', baby:'جنسه يمكن رؤيته بالإيكو بوضوح الآن', mama:'قد تعانين من احتقان الأنف — هذا هرموني', tip:'اكتبي أسماء تعجبك — ابدئي قائمة الأسماء!' },
+  19: { emoji:'🥭', size:'مانجو (15.3 سم، 240 غ)', baby:'حاسة السمع تكتمل — يسمع موسيقاك', mama:'الحركات تصبح أوضح وأقوى', tip:'تحدثي وغني لطفلك — يتعرف على صوتك' },
+  20: { emoji:'🍌', size:'موزة (25.6 سم، 300 غ)', baby:'نصف الرحلة! يفتح عينيه قليلاً', mama:'إيكو المنتصف الأهم — لا تفوتيه!', tip:'ابدئي بالتفكير في اختيار طبيب الأطفال' },
+  21: { emoji:'🥕', size:'جزرة (26.7 سم، 360 غ)', baby:'يبتلع السائل الأمنيوسي — يتدرب على الهضم', mama:'رباط الحوض يمتد — ألم خفيف طبيعي', tip:'تمارين الإطالة والسباحة ممتازة الآن' },
+  22: { emoji:'🌽', size:'كوز ذرة (27.8 سم، 430 غ)', baby:'نظره يتطور وإن كان العالم ضبابياً له', mama:'قد تظهر أوردة الساقين — ارفعيها حين الجلوس', tip:'ابدئي بشراء احتياجات المولود تدريجياً' },
+  23: { emoji:'🍆', size:'باذنجانة (28.9 سم، 501 غ)', baby:'يستجيب للأصوات المفاجئة بالرفس!', mama:'الحموضة والارتجاع شائعان الآن', tip:'وجبات صغيرة متكررة تقلل الحموضة' },
+  24: { emoji:'🌽', size:'ذرة (30 سم، 600 غ)', baby:'رئتاه تتطوران — جاهزتان تقريباً', mama:'فحص سكر الحمل مهم هذا الشهر', tip:'الحد الفاصل للبقاء خارج الرحم: 24 أسبوع' },
+  25: { emoji:'🫒', size:'فجلة (34.6 سم، 660 غ)', baby:'شعره يبدأ بالنمو وتضح ملامح وجهه', mama:'التورم الخفيف في الكاحلين طبيعي', tip:'تجنبي الوقوف الطويل وارفعي قدميك حين الجلوس' },
+  26: { emoji:'🥬', size:'كوسة صغيرة (35.6 سم، 760 غ)', baby:'يفتح عينيه ويغلقهما — يميّز النور والظلام', mama:'قد تبدأ تقلصات براكستون هيكس الوهمية', tip:'تقلصات غير منتظمة وغير مؤلمة = طبيعية تماماً' },
+  27: { emoji:'🥦', size:'قرنبيط (36.6 سم، 875 غ)', baby:'دماغه ينمو بسرعة مذهلة — نهاية الثلث الثاني', mama:'قد تبدأ صعوبة في التنفس — الرحم يضغط', tip:'نومي منتصبة قليلاً بوسادة إضافية' },
+  28: { emoji:'🫑', size:'فلفل حار (37.6 سم، 1 كغ)', baby:'مبروك — الثلث الثالث! يزن كيلوغراماً', mama:'زيارات الطبيب تصبح أسبوعية قريباً', tip:'حضّري حقيبة المستشفى مسبقاً' },
+  29: { emoji:'🥥', size:'جوز الهند (38.6 سم، 1.15 كغ)', baby:'العظام تتصلب — يحتاج الكالسيوم', mama:'الظهر والوركان يؤلمان أكثر', tip:'الكالسيوم من الحليب والزبادي مهم جداً' },
+  30: { emoji:'🎃', size:'يقطينة صغيرة (39.9 سم، 1.3 كغ)', baby:'يتمرن على التنفس بتحريك صدره', mama:'صعوبة في النوم؟ استخدمي وسادة بين الركبتين', tip:'ابدئي دورة التحضير للولادة' },
+  31: { emoji:'🥥', size:'جوز هند (41.1 سم، 1.5 كغ)', baby:'جهازه المناعي يستعد — يأخذ أجسامك المضادة', mama:'الإرهاق عاد — استريحي بلا ذنب', tip:'خططي لإجازة الأمومة الآن' },
+  32: { emoji:'🫐', size:'توتة كبيرة (42.4 سم، 1.7 كغ)', baby:'ينام 90-95% من الوقت يدخّر الطاقة', mama:'تورم اليدين؟ تحققي من الضغط والبروتين', tip:'راقبي ركلات طفلك — 10 حركات كل 2 ساعة' },
+  33: { emoji:'🍍', size:'أناناس (43.7 سم، 1.9 كغ)', baby:'أظافره اكتملت — قد يخدش وجهه!', mama:'صعوبة في التنفس؟ الرحم يضغط على الرئتين', tip:'قريباً ينزل رأسه — ستتنفسين بسهولة' },
+  34: { emoji:'🎃', size:'قرعة متوسطة (45 سم، 2.1 كغ)', baby:'بصره اكتمل تقريباً — يرى الضوء', mama:'قد تشعرين بضغط في الحوض', tip:'تعلمي تقنيات التنفس للولادة' },
+  35: { emoji:'🍈', size:'شمامة (46.2 سم، 2.4 كغ)', baby:'الكلى والكبد تعملان بشكل شبه كامل', mama:'زياراتك كل أسبوعين الآن', tip:'احزمي حقيبة المستشفى هذا الأسبوع!' },
+  36: { emoji:'🥬', size:'خس (47.4 سم، 2.6 كغ)', baby:'يبدأ بالنزول إلى الحوض استعداداً', mama:'الضغط على المثانة يزداد', tip:'تعلمي علامات المخاض الحقيقي' },
+  37: { emoji:'🥦', size:'قرنبيط كبير (48.6 سم، 2.9 كغ)', baby:'مكتمل النضج! الولادة الآن آمنة', mama:'تقلصات منتظمة؟ اتصلي بطبيبك', tip:'الرضاعة الطبيعية: احضري دورة إن أمكن' },
+  38: { emoji:'🎃', size:'قرعة (49.8 سم، 3.1 كغ)', baby:'شعره قد يكون كثيفاً — أو أصلعاً تماماً!', mama:'عنق الرحم يبدأ بالتمدد', tip:'استريحي وفكري بالأشياء الجميلة القادمة' },
+  39: { emoji:'🍉', size:'بطيخة صغيرة (50.7 سم، 3.3 كغ)', baby:'جسمه مكتمل ويجمع الدهون للدفء', mama:'كل يوم قد يكون اليوم! ابقي قريبة', tip:'نزول المخاط أو كسر الكيس = اذهبي للمستشفى' },
+  40: { emoji:'🎀', size:'موسم الميلاد! (51 سم، 3.4 كغ)', baby:'جاهز للخروج ومقابلتك 💕', mama:'صبراً وتوكلاً على الله — اللقاء قريب', tip:'التوكل والإيجابية من أجمل هدايا الولادة' },
+};
+let currentWeek = 8;
+function renderPregnancy() {
+  currentWeek = S.pregnancyWeek || 8;
+  renderWeekContent();
+}
+function changeWeek(d) {
+  currentWeek = Math.max(1, Math.min(40, currentWeek + d));
+  S.pregnancyWeek = currentWeek;
+  renderWeekContent();
+}
+function renderWeekContent() {
+  document.getElementById('week-num').textContent = currentWeek;
+  document.getElementById('preg-progress').style.width = (currentWeek/40*100) + '%';
+  const w = weekData[currentWeek] || weekData[8];
+  document.getElementById('week-content').innerHTML = `
+    <div class="week-card">
+      <div class="week-card-header">
+        <div class="week-emoji">${w.emoji}</div>
+        <div>
+          <div class="week-card-title">الأسبوع ${currentWeek}</div>
+          <div class="week-card-sub">حجم الجنين: ${w.size}</div>
+        </div>
+      </div>
+      <div class="week-section">
+        <div class="week-section-title">👶 جنينك هذا الأسبوع</div>
+        <p>${w.baby}</p>
+      </div>
+      <div class="week-section">
+        <div class="week-section-title">🤰 ماذا تشعرين؟</div>
+        <p>${w.mama}</p>
+      </div>
+      <div class="week-tip">💡 ${w.tip}</div>
+    </div>`;
 }
 
-// MILESTONES
+// ── MILESTONES ────────────────────────────────────────────────────────────────
 const milestoneData = [
   { stage:'الحمل', emoji:'🤰', cats:[
     { t:'🍎 التغذية', items:['تناولي حمض الفوليك يومياً','ابتعدي عن المأكولات النيئة','اشربي 8 أكواب ماء يومياً'] },
-    { t:'🏥 المتابعة الطبية', items:['زيارة الطبيب كل 4 أسابيع','تحاليل الدم والسكر','الإيكوغرافي في الأشهر المقررة'] }
+    { t:'🏥 المتابعة', items:['زيارة الطبيب كل 4 أسابيع','تحاليل الدم والسكر','الإيكوغرافي في الأشهر المقررة'] }
   ]},
   { stage:'0-3 أشهر', emoji:'🍼', cats:[
     { t:'💪 حركي', items:['يرفع رأسه قليلاً','يتحرك ذراعاه وساقاه'] },
@@ -707,47 +931,95 @@ function renderMilestones() {
       ${s.cats.map((c,ci)=>`
         <div class="milestone-category">
           <div class="milestone-cat-title">${c.t}</div>
-          ${c.items.map((item,ii)=>{
-            const k=`${si}-${ci}-${ii}`, done=mChecks[k];
-            return `<div class="milestone-item"><div class="m-check ${done?'done':''}" onclick="toggleCheck('${k}',this)">${done?'✓':''}</div><div>${item}</div></div>`;
-          }).join('')}
+          ${c.items.map((item,ii)=>{const k=`${si}-${ci}-${ii}`,done=mChecks[k];return `<div class="milestone-item"><div class="m-check ${done?'done':''}" onclick="toggleCheck('${k}',this)">${done?'✓':''}</div><div>${item}</div></div>`;}).join('')}
         </div>`).join('')}
     </div>`).join('');
   document.getElementById('milestone-body').innerHTML = `<div class="stage-tabs">${tabs}</div>${stages}`;
 }
-function switchTab(i) {
-  document.querySelectorAll('.stage-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
-  document.querySelectorAll('.milestone-stage').forEach((s,idx)=>s.classList.toggle('active',idx===i));
-}
-function toggleCheck(k, el) {
-  mChecks[k] = !mChecks[k];
-  el.classList.toggle('done', mChecks[k]);
-  el.textContent = mChecks[k] ? '✓' : '';
-}
+function switchTab(i){document.querySelectorAll('.stage-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.milestone-stage').forEach((s,idx)=>s.classList.toggle('active',idx===i));}
+function toggleCheck(k,el){mChecks[k]=!mChecks[k];el.classList.toggle('done',mChecks[k]);el.textContent=mChecks[k]?'✓':'';}
 
-// STORIES
-const stories = [
-  { emoji:'🌙', color:'#667eea', age:'0-2 سنة', title:'نوم هنيء يا حبيبي', desc:'قصة تساعد طفلك على الاستعداد للنوم بهدوء',
-    text:`كان الليل يهبط بهدوء على البيت الصغير، وكان الطفل يحك عينيه الصغيرتين.\n\nقالت الأم بصوت ناعم: "حان وقت النوم يا حبيبي..."\n\nنظر الطفل إلى القمر من النافذة. القمر يبتسم. النجوم ترمش.\n\nاحتضنت الأم طفلها. شعر بدفء قلبها. سمع نبضها الهادئ.\n\nغمضت العيون الصغيرة ببطء...\n\nنام بأمان في حضن الحب.`,
-    lesson:'الروتين والدفء العاطفي يمنحان الطفل شعوراً بالأمان وينظمان نومه.' },
-  { emoji:'🍎', color:'#f093fb', age:'2-3 سنوات', title:'أكل وأنا سعيد', desc:'قصة تشجع الطفل على تناول الطعام الصحي',
-    text:`كانت سلمى لا تحب الخضار أبداً.\n\nيوماً ما، وجدت في طبقها جزرة برتقالية تبتسم لها!\n\n"آكليني وستصبحين قوية!" قالت الجزرة.\n\nضحكت سلمى وأكلت الجزرة، ثم الخيارة، ثم الطماطمة.\n\nقالت لأمها: "الخضار لذيذة يا ماما!"\n\nابتسمت الأم: "الطعام الصحي يجعلك تكبرين."`,
-    lesson:'تقديم الطعام بطريقة ممتعة يساعد الأطفال على تقبّل الأغذية الصحية.' },
-  { emoji:'👫', color:'#4facfe', age:'3-4 سنوات', title:'أنا وصديقي', desc:'قصة عن الصداقة والمشاركة',
-    text:`كان ياسر يلعب وحده في الحديقة.\n\nرأى طفلاً جديداً يجلس وحيداً.\n\n"ما اسمك؟" سأل ياسر.\n\n"أمين" قال الطفل بصوت خافت.\n\n"هل تحب كرة القدم؟" قال ياسر وأخرج كرته.\n\nابتسم أمين للمرة الأولى. لعبا معاً حتى الغروب.\n\n"الصداقة تبدأ بكلمة طيبة" قال ياسر لأمه.`,
-    lesson:'تعليم الطفل المبادرة والتعاطف يبني مهارات اجتماعية تدوم مدى الحياة.' },
-  { emoji:'🌟', color:'#43e97b', age:'4-5 سنوات', title:'أنا أستطيع', desc:'قصة عن الثقة بالنفس وتجاوز الخوف',
-    text:`كانت ليلى تخاف من الظلام.\n\nقالت أمها: "ليلى، الظلام ليس عدواً."\n\nأطفأت الأم المصباح ببطء.\n\nرأت ليلى نور القمر من الستارة. ونجمة رسمتها أمها تلمع في الظلام.\n\n"جميل!" همست ليلى.\n\nمن تلك الليلة، نامت بلا خوف.\n\nالشجاعة ليست غياب الخوف — بل مواجهته بمن نحب.`,
-    lesson:'مساعدة الطفل على مواجهة مخاوفه بأمان يبني ثقته بنفسه.' },
+// ── STORIES ───────────────────────────────────────────────────────────────────
+const storyGroups = [
+  { group:'0–6 أشهر', emoji:'🍼', color:'#a29bfe', stories:[
+    { emoji:'🌙', title:'نوم هنيء يا حبيبي', desc:'قصة تهيئ الرضيع للنوم بهدوء',
+      text:`كان الليل يهبط بهدوء على البيت الصغير، وكان الرضيع يحك عينيه.\n\nقالت الأم بصوت ناعم: "حان وقت النوم يا حبيبي..."\n\nنظرت إلى القمر من النافذة. القمر يبتسم. النجوم ترمش.\n\nاحتضنت الأم رضيعها. شعر بدفء قلبها. سمع نبضها الهادئ.\n\nغمضت العيون الصغيرة ببطء...\n\nنام بأمان في حضن الحب.`,
+      lesson:'الروتين والدفء العاطفي يمنحان الرضيع شعوراً بالأمان وينظمان نومه.' },
+    { emoji:'😊', title:'ابتسامة أمي', desc:'قصة عن الارتباط العاطفي الأول',
+      text:`فتح الرضيع عينيه الصغيرتين.\n\nرأى وجهاً دافئاً ينظر إليه.\n\nابتسمت الأم.\n\nلم يفهم الكلام بعد — لكنه فهم الحب.\n\nابتسم هو أيضاً.\n\nكانت تلك أول لغة يتعلمها:\n\nلغة الحب التي لا تحتاج إلى كلمات.`,
+      lesson:'التواصل البصري والابتسام أساس بناء الارتباط العاطفي الآمن في الأشهر الأولى.' },
+    { emoji:'🎵', title:'أغنية ماما', desc:'قصة عن قوة الصوت الأمومي',
+      text:`كان الرضيع يبكي في الليل.\n\nجاءت الأم وغنّت بصوت خافت.\n\nسمع الرضيع — توقف عن البكاء.\n\nعرف ذلك الصوت جيداً.\n\nسمعه قبل أن يولد!\n\nفي بطن أمه كان يسمع ويتعلم.\n\nالصوت الذي يهدئه الآن هو نفس الصوت الذي أحبه منذ البداية.`,
+      lesson:'صوت الأم المألوف منذ الرحم من أقوى أدوات التهدئة الطبيعية للرضيع.' },
+    { emoji:'🤲', title:'يدان صغيرتان', desc:'قصة عن اكتشاف الجسد',
+      text:`وجد الرضيع يديه.\n\nنظر إليهما طويلاً.\n\nحركهما يمنة ويسرة.\n\nأدخلهما فمه!\n\nضحكت الأم — هذا ليس جوعاً.\n\nهذا استكشاف.\n\nكل طفل يبدأ بتعلم جسده قبل أن يتعلم العالم.\n\nواليدان هما أول درس.`,
+      lesson:'وضع اليد في الفم عند الرضيع استكشاف طبيعي وليس عادة سيئة.' },
+  ]},
+  { group:'6–18 شهراً', emoji:'🌿', color:'#55efc4', stories:[
+    { emoji:'🍎', title:'أكلتي الأولى', desc:'قصة عن بداية الأكل الصلب',
+      text:`جلست ريم أمام طبق جديد.\n\nكان فيه شيء برتقالي اللون — جزر مهروس.\n\nمدت يدها ولمسته.\n\nأدخلته فمها ببطء...\n\nفزّت أمها: "هل يعجبك؟"\n\nفتحت ريم فمها مجدداً.\n\nهذه كانت إجابتها: نعم!`,
+      lesson:'التعرف على المذاقات الجديدة تجربة ممتعة — الصبر وتقديم الطعام بلطف يبني علاقة صحية مع الأكل.' },
+    { emoji:'👣', title:'خطوتي الأولى', desc:'قصة الشجاعة الأولى',
+      text:`وقف يوسف ممسكاً بالطاولة.\n\nنظر إلى أمه — كانت تبتسم وتمد يديها.\n\nأفلت يده ببطء...\n\nخطوة واحدة.\n\nخطوتان.\n\nثم وقع — وضحك!\n\nنهض مجدداً.\n\nفي تلك اللحظة فهم يوسف: السقوط ليس النهاية.`,
+      lesson:'الخطوات الأولى تعلّم الطفل المثابرة — الاحتفاء بكل محاولة أهم من الاحتفاء بالنجاح فقط.' },
+    { emoji:'🐾', title:'ما هذا؟', desc:'قصة الفضول واللغة الأولى',
+      text:`أشار علي بإصبعه الصغير.\n\n"ما هذا؟" سأل بعينيه قبل أن يسأل بفمه.\n\nقالت أمه: "هذا قطّ."\n\n"قطّ؟" قال علي.\n\n"قطّ!" قالت الأم وابتسمت.\n\nكل شيء حوله كان سؤالاً ينتظر جواباً.\n\nوأمه كانت أجمل مرجع في العالم.`,
+      lesson:'الإشارة بالإصبع والتسمية المتكررة من أقوى طرق بناء المفردات اللغوية الأولى.' },
+    { emoji:'🛁', title:'وقت الحمام', desc:'قصة تحويل الروتين إلى متعة',
+      text:`كان نور يكره الحمام.\n\nيوماً ما وضعت أمه بطة صفراء في الماء.\n\nبطة! في الماء!\n\nجلس نور ونظر إليها.\n\nلمسها. سبحت!\n\nأصبح الحمام أجمل جزء من يومه.\n\nالسر لم يكن الماء — كان البطة الصفراء.`,
+      lesson:'إضافة عنصر ممتع للروتين اليومي يحوّله من مهمة مرهقة إلى لحظة مشتركة جميلة.' },
+  ]},
+  { group:'2–3 سنوات', emoji:'🌸', color:'#fd79a8', stories:[
+    { emoji:'🥦', title:'أكل وأنا سعيد', desc:'قصة تشجع على تناول الخضار',
+      text:`كانت سلمى لا تحب الخضار أبداً.\n\nيوماً ما وجدت جزرة برتقالية تبتسم لها في طبقها!\n\n"آكليني وستصبحين قوية!" قالت الجزرة.\n\nضحكت سلمى وأكلت الجزرة، ثم الخيارة، ثم الطماطمة.\n\nقالت لأمها: "الخضار لذيذة يا ماما!"\n\nابتسمت الأم: "الطعام الصحي يجعلك تكبرين."`,
+      lesson:'تقديم الطعام بطريقة مرحة يساعد الأطفال على تقبل الأغذية الصحية بسعادة.' },
+    { emoji:'🧸', title:'دميتي الحزينة', desc:'قصة عن التعاطف والمشاعر',
+      text:`وجدت لينا دميتها ملقاة على الأرض.\n\n"دميتي تبكي!" قالت لأمها.\n\n"لماذا تبكي؟" سألت الأم.\n\n"لأنها وحيدة" قالت لينا.\n\nرفعت الدمية واحتضنتها.\n\n"الآن هي سعيدة. لا أحد يحب أن يكون وحيداً."\n\nنظرت الأم إلى ابنتها بدهشة.\n\nكانت لينا قد تعلمت التعاطف.`,
+      lesson:'الطفل في هذه المرحلة يبدأ تعلّم التعاطف — تشجيعه على التعبير عن مشاعر الآخرين يبني ذكاءه العاطفي.' },
+    { emoji:'🌈', title:'اليوم الممطر', desc:'قصة عن إيجاد الفرح في كل يوم',
+      text:`نظر كريم من النافذة. مطر.\n\n"لا نستطيع اللعب في الحديقة!" قال بحزن.\n\nقالت أمه: "أو... نلعب بالمطر!"\n\nلبسا المعطفين وخرجا.\n\nقفزا في البرك!\n\nضحكا حتى ابتلّا.\n\nعاد كريم إلى البيت:\n\n"الأيام الممطرة أحلى من الشمس!"`,
+      lesson:'تعليم الطفل إيجاد الفرح في الظروف المختلفة يبني مرونة نفسية تخدمه مدى الحياة.' },
+    { emoji:'🖌️', title:'لوحتي', desc:'قصة عن الإبداع والتعبير',
+      text:`جلست هاجر أمام ورقة بيضاء.\n\nرسمت شمساً صفراء. وبيتاً أحمر. وأمها بجانبها.\n\nقال أخوها: "الشمس ليست صفراء هكذا!"\n\nقالت هاجر: "شمستي أنا صفراء."\n\nنظرت الأم إلى اللوحة وقالت: "جميلة جداً يا هاجر."\n\nابتسمت هاجر: الجمال ليس قاعدة — هو شعور.`,
+      lesson:'تقدير إبداع الطفل كما هو يحمي ثقته بنفسه ويشجعه على التعبير دون خوف من النقد.' },
+  ]},
+  { group:'4–5 سنوات', emoji:'🌟', color:'#fdcb6e', stories:[
+    { emoji:'👫', title:'أنا وصديقي', desc:'قصة عن الصداقة والمشاركة',
+      text:`كان ياسر يلعب وحده في الحديقة.\n\nرأى طفلاً جديداً يجلس وحيداً.\n\n"ما اسمك؟" سأل ياسر.\n\n"أمين" قال الطفل بصوت خافت.\n\n"هل تحب كرة القدم؟" قال ياسر وأخرج كرته.\n\nابتسم أمين للمرة الأولى. لعبا معاً حتى الغروب.\n\n"الصداقة تبدأ بكلمة طيبة" قال ياسر لأمه.`,
+      lesson:'تعليم الطفل المبادرة والتعاطف يبني مهارات اجتماعية تدوم مدى الحياة.' },
+    { emoji:'⭐', title:'أنا أستطيع', desc:'قصة عن الثقة وتجاوز الخوف',
+      text:`كانت ليلى تخاف من الظلام.\n\nقالت أمها: "ليلى، الظلام ليس عدواً."\n\nأطفأت الأم المصباح ببطء.\n\nرأت ليلى نور القمر من الستارة. ونجمة رسمتها أمها تلمع في الظلام.\n\n"جميل!" همست ليلى.\n\nمن تلك الليلة نامت بلا خوف.\n\nالشجاعة ليست غياب الخوف — بل مواجهته بمن نحب.`,
+      lesson:'مساعدة الطفل على مواجهة مخاوفه بأمان وبرفقة أحد الوالدين يبني ثقته بنفسه.' },
+    { emoji:'🌳', title:'الشجرة الصغيرة', desc:'قصة عن الصبر والنمو',
+      text:`زرع تامر بذرة صغيرة.\n\nفي اليوم الأول: لا شيء.\n\nفي الأسبوع الأول: لا شيء.\n\nبكى تامر: "لماذا لا تنبت؟"\n\nقالت أمه: "هي تنمو تحت الأرض — حيث لا تراها."\n\nفي اليوم الثاني عشر: ورقة خضراء صغيرة!\n\nعلّم تامر كل أصدقائه:\n\n"أجمل الأشياء تحتاج وقتاً."`,
+      lesson:'الصبر والانتظار درس قيّم يمكن تعليمه عبر الطبيعة — الزراعة أداة تربوية رائعة.' },
+    { emoji:'🧩', title:'اللغز الصعب', desc:'قصة عن المثابرة وطلب المساعدة',
+      text:`أمام منى لغز من 20 قطعة.\n\nحاولت. ثم حاولت. ثم رمت اللغز!\n\n"صعب جداً!"\n\nقالت أمها: "هل تريدين مساعدة؟"\n\n"لا! أنا أستطيع وحدي."\n\nبعد عشر دقائق... نجحت!\n\nعانقت أمها وقالت:\n\n"الأشياء الصعبة تصير أجمل حين تنجحين فيها وحدك."`,
+      lesson:'الإصرار على الاستقلالية في هذا العمر صحي — دعم الطفل دون التدخل يبني اعتزازه بإنجازاته.' },
+  ]},
 ];
+
+// flatten for single-story reading
+const stories = storyGroups.flatMap((g,gi) => g.stories.map((s,si) => ({...s, age: g.group, color: g.color, groupIdx: gi, storyIdx: si})));
+
 function renderStories() {
-  document.getElementById('stories-body').innerHTML = stories.map((s,i)=>`
-    <div class="story-card" onclick="openStory(${i})">
-      <div class="story-banner" style="background:linear-gradient(135deg,${s.color}33,${s.color}11)">${s.emoji}</div>
-      <div class="story-info">
-        <div class="age-badge">${s.age}</div>
-        <div class="story-title">${s.title}</div>
-        <div class="story-desc">${s.desc}</div>
+  const body = document.getElementById('stories-body');
+  body.innerHTML = storyGroups.map((g, gi) => `
+    <div style="margin-bottom:8px">
+      <div style="font-size:1rem;font-weight:800;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+        <span style="background:${g.color}33;border-radius:8px;padding:4px 10px">${g.emoji} ${g.group}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        ${g.stories.map((s,si) => {
+          const idx = stories.findIndex(x => x.groupIdx===gi && x.storyIdx===si);
+          return `<div class="story-card" onclick="openStory(${idx})" style="margin-bottom:0">
+            <div class="story-banner" style="background:linear-gradient(135deg,${g.color}44,${g.color}11);height:60px;font-size:2.2rem">${s.emoji}</div>
+            <div class="story-info" style="padding:10px">
+              <div class="story-title" style="font-size:0.82rem">${s.title}</div>
+              <div class="story-desc" style="font-size:0.72rem;margin-top:3px">${s.desc}</div>
+            </div>
+          </div>`;
+        }).join('')}
       </div>
     </div>`).join('');
 }
@@ -756,111 +1028,306 @@ function openStory(i) {
   document.getElementById('reader-header').textContent = s.title;
   document.getElementById('story-reader-body').innerHTML = `
     <div style="text-align:center;font-size:4rem;margin-bottom:16px">${s.emoji}</div>
-    <div style="text-align:center;font-size:1.4rem;font-weight:800;color:var(--purple);margin-bottom:16px">${s.title}</div>
+    <div style="text-align:center;font-size:1.4rem;font-weight:800;color:var(--purple);margin-bottom:8px">${s.title}</div>
     <div class="age-badge" style="display:inline-block;margin-bottom:16px">${s.age}</div>
     <div class="story-text">${s.text.replace(/\n\n/g,'<br><br>')}</div>
     <div class="story-lesson"><h4>💡 الفائدة التربوية</h4><p>${s.lesson}</p></div>`;
   showScreen('story-reader');
 }
 
-// PROFILE
-function updateProfile() {
-  document.getElementById('profile-name').textContent = S.userName || 'أمّ لولو';
-  document.getElementById('profile-stage-text').textContent = stageText();
-  document.getElementById('profile-status').textContent = S.subscribed
-    ? (S.subExpiry ? `اشتراك فعّال حتى ${fmtDate(S.subExpiry)}` : 'اشتراك فعّال')
-    : `مجاني — ${S.freeChats} استشارات متبقية`;
-  document.getElementById('profile-banner').innerHTML = bannerHTML();
+// ── NUTRITION ─────────────────────────────────────────────────────────────────
+const nutritionData = {
+  byAge: [
+    { stage:'0–6 أشهر', emoji:'🤱', color:'#a29bfe', tips:[
+      { icon:'🤱', t:'الرضاعة الطبيعية هي الغذاء الكامل', d:'حليب الأم يحتوي على كل ما يحتاجه الرضيع — لا يحتاج ماء ولا عصيراً ولا أي شيء آخر.' },
+      { icon:'⏰', t:'الرضاعة عند الطلب', d:'أرضعي كلما طلب الرضيع — عادة 8-12 مرة في 24 ساعة. لا تنتظري ساعات محددة في الأشهر الأولى.' },
+      { icon:'🍼', t:'إذا كانت الحليب الصناعي ضرورة', d:'اختاري حليباً مناسباً لعمره واتبعي تعليمات التحضير بدقة — النسبة الخاطئة تضر بالكلى.' },
+      { icon:'❌', t:'ممنوع قبل 6 أشهر', d:'لا ماء، لا عصائر، لا حبوب، لا عسل — الجهاز الهضمي للرضيع لم يكتمل بعد.' },
+    ]},
+    { stage:'6–12 شهراً', emoji:'🥣', color:'#55efc4', tips:[
+      { icon:'🥣', t:'ابدئي بالتوابل لا الحلوى', d:'ابدئي بالخضار المهروسة (جزر، بطاطا، كوسة) قبل الفواكه لتعويد لسانه على المذاقات المتنوعة.' },
+      { icon:'🤌', t:'الحجم المناسب', d:'ملعقة أو اثنتان في البداية — المعدة بحجم قبضة يده الصغيرة. زيدي التدريجياً كل أسبوع.' },
+      { icon:'🐟', t:'الحديد ضروري جداً', d:'بعد 6 أشهر يحتاج الطفل الحديد من الطعام. الدجاج، العدس، السبانخ المهروسة من أفضل المصادر.' },
+      { icon:'⚠️', t:'تجنبي الملح والسكر', d:'كلى الطفل لا تستطيع التعامل مع الملح. السكر يخلق إدماناً مبكراً. لا تضيفيهما قبل سنة.' },
+      { icon:'🥜', t:'متى تقدمين المسببات التحسسية؟', d:'قدمي الفول السوداني والبيض والسمك مبكراً (6-12 شهر) — الدراسات تثبت أن التعريف المبكر يقلل الحساسية.' },
+    ]},
+    { stage:'1–3 سنوات', emoji:'🍽️', color:'#fd79a8', tips:[
+      { icon:'🍽️', t:'وجبات عائلية مشتركة', d:'الطفل يتعلم الأكل بالمشاهدة — الجلوس معاً على المائدة يبني علاقة صحية مع الطعام أفضل من أي طريقة أخرى.' },
+      { icon:'🥛', t:'الحليب بعد السنة', d:'200-300 مل من حليب البقر يومياً كافٍ — لا تزيدي لأن الإفراط يقلل الشهية ويمنع امتصاص الحديد.' },
+      { icon:'🎨', t:'تنوع الألوان = تنوع التغذية', d:'اجعلي طبقه ملوناً — أحمر (طماطم)، برتقالي (جزر)، أخضر (خيار)، أصفر (ذرة). كل لون = فيتامينات مختلفة.' },
+      { icon:'😤', t:'طفلي يرفض الأكل — ماذا أفعل؟', d:'الانتقائية في الأكل طبيعية جداً في هذا العمر. قدمي الطعام الجديد 10-15 مرة قبل الاستسلام — الذوق يتطور ببطء.' },
+      { icon:'🍬', t:'السكر والحلوى', d:'الحلوى ليست مكافأة — هذا يجعلها أكثر جاذبية. قدميها كطعام عادي بكميات محدودة دون تضخيم.' },
+    ]},
+    { stage:'3–5 سنوات', emoji:'🏃', color:'#fdcb6e', tips:[
+      { icon:'🧠', t:'الطعام وذكاء الطفل', d:'أوميغا 3 من السمك والجوز تغذي الدماغ النامي. حاولي تقديم السمك مرتين في الأسبوع.' },
+      { icon:'🏃', t:'الطاقة للعب والتعلم', d:'وجبة الإفطار أهم وجبة — الطفل الذي يفطر جيداً أكثر تركيزاً وأقل نزقاً في الصباح.' },
+      { icon:'🥤', t:'الماء عادة قبل العصير', d:'علمي طفلك طلب الماء حين يعطش — العصائر حتى الطبيعية منها تحتوي سكراً يؤثر على الأسنان والوزن.' },
+      { icon:'🍕', t:'متى تتساهلين؟', d:'الكمال الغذائي هدف أسبوعي لا يومي — يوم أكل فيه البسكويت فقط لا يدمر صحته. الضغط يخلق علاقة سيئة مع الطعام.' },
+    ]},
+  ],
+  byTopic: [
+    { topic:'🤱 الرضاعة الطبيعية', color:'#a29bfe', tips:[
+      { icon:'⏱️', t:'متى تبدئين؟', d:'في أول ساعة بعد الولادة — اللبأ (الحليب الأصفر الأول) أثمن ما تقدمينه لطفلك.' },
+      { icon:'📍', t:'الوضعية الصحيحة', d:'فم الطفل يجب أن يلتقم الهالة كاملاً لا الحلمة فقط — الوضعية الخاطئة سبب الألم وضعف الإنتاج.' },
+      { icon:'💧', t:'كيف أعرف أنه يأكل كافياً؟', d:'6-8 حفاضات مبللة في 24 ساعة + وزن يزيد = الرضيع يأكل جيداً. البكاء وحده ليس دليلاً على الجوع.' },
+      { icon:'🥛', t:'أطعمة تزيد الحليب', d:'الشبت، الحلبة، الشوفان، الشمر — وفوق كل شيء: شربي الماء الكافي والراحة قدر المستطاع.' },
+      { icon:'🛑', t:'متى تتوقفين؟', d:'منظمة الصحة العالمية توصي بالرضاعة حتى سنتين — لكن أي مدة تناسبك وطفلك هي القرار الصحيح.' },
+    ]},
+    { topic:'🥣 التغذية التكميلية', color:'#55efc4', tips:[
+      { icon:'📅', t:'متى تبدئين؟', d:'عند اكتمال 6 أشهر — مؤشرات الاستعداد: يجلس بمساعدة، يتحكم برأسه، يبدي اهتماماً بطعامك.' },
+      { icon:'🔢', t:'الترتيب الصحيح', d:'خضار → فواكه → حبوب → بروتين. ابدئي بطعام واحد في وقت واحد وانتظري 3-4 أيام قبل تقديم طعام جديد.' },
+      { icon:'🫙', t:'قوام الطعام', d:'مهروس ناعم في البداية، ثم مهروس خشن، ثم قطع صغيرة جداً — حسب عدد أسنانه ومهارة مضغه.' },
+      { icon:'🚫', t:'ممنوعات السنة الأولى', d:'العسل (خطر التسمم البوتوليني)، الحليب البقري كمشروب، الملح الزائد، السكر المضاف، المكسرات الكاملة.' },
+    ]},
+    { topic:'⚠️ الحساسية الغذائية', color:'#fd79a8', tips:[
+      { icon:'🔍', t:'أكثر المسببات شيوعاً', d:'الحليب، البيض، القمح، الفول السوداني، المكسرات، السمك، الصدفيات — قدميها واحدة واحدة وراقبي.' },
+      { icon:'🚨', t:'علامات الحساسية', d:'طفح جلدي، تورم الشفاه، قيء شديد، صعوبة تنفس — أي من هذه الأعراض = طوارئ فورية.' },
+      { icon:'🛡️', t:'الوقاية خير من العلاج', d:'التعريف المبكر للمسببات (قبل سنة) يقلل خطر الحساسية — لا تتأخري في تقديمها خوفاً.' },
+      { icon:'📋', t:'إذا ظهرت حساسية', d:'لا تحذفي مجموعة غذائية كاملة دون استشارة طبيب — الحمية غير الضرورية تسبب نقص التغذية.' },
+    ]},
+    { topic:'💊 الفيتامينات والمعادن', color:'#fdcb6e', tips:[
+      { icon:'☀️', t:'فيتامين د', d:'ضروري لجميع الرضع الذين يرضعون طبيعياً — 400 وحدة يومياً من الأسبوع الأول. استشيري طبيبك.' },
+      { icon:'🩸', t:'الحديد', d:'يبدأ الحاجة من 4-6 أشهر. اللحم الأحمر، الكبدة، العدس، الفاصوليا مصادر ممتازة. فيتامين C يساعد على امتصاصه.' },
+      { icon:'🦷', t:'الكالسيوم', d:'الحليب والزبادي والجبن مصادر ممتازة. السردين بعظامه من أغنى مصادر الكالسيوم ويمكن هرسه للأطفال.' },
+      { icon:'🧠', t:'أوميغا 3', d:'السمك الدهني (سردين، سلمون) مرتين أسبوعياً يدعم نمو الدماغ والبصر بشكل كبير.' },
+      { icon:'🌿', t:'حمض الفوليك للأم الحامل', d:'400 ميكروغرام قبل الحمل وفي الثلث الأول يقلل خطر عيوب الأنبوب العصبي بنسبة 70%.' },
+    ]},
+  ]
+};
+
+let nutritionTab = 'age';
+function renderNutrition() {
+  const tabs = `<div style="display:flex;gap:8px;margin-bottom:16px">
+    <button onclick="switchNutritionTab('age')" style="flex:1;padding:10px;border-radius:12px;border:2px solid ${nutritionTab==='age'?'var(--pink-dark)':'var(--border)'};background:${nutritionTab==='age'?'var(--pink-light)':'white'};font-weight:700;font-family:inherit;font-size:0.85rem;cursor:pointer;color:${nutritionTab==='age'?'var(--pink-dark)':'var(--gray)'}">📅 حسب العمر</button>
+    <button onclick="switchNutritionTab('topic')" style="flex:1;padding:10px;border-radius:12px;border:2px solid ${nutritionTab==='topic'?'var(--pink-dark)':'var(--border)'};background:${nutritionTab==='topic'?'var(--pink-light)':'white'};font-weight:700;font-family:inherit;font-size:0.85rem;cursor:pointer;color:${nutritionTab==='topic'?'var(--pink-dark)':'var(--gray)'}">🏷️ حسب الموضوع</button>
+  </div>`;
+  const data = nutritionTab==='age' ? nutritionData.byAge : nutritionData.byTopic;
+  const key = nutritionTab==='age' ? 'stage' : 'topic';
+  const content = data.map((group, gi) => `
+    <div style="background:white;border-radius:16px;margin-bottom:14px;overflow:hidden;border:1px solid var(--border)">
+      <div style="background:${group.color}44;padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="toggleNutSection(${gi})">
+        <span style="font-size:1.4rem">${group.emoji||''}</span>
+        <span style="font-weight:800;font-size:0.95rem;flex:1">${group[key]}</span>
+        <span id="nut-arrow-${gi}">▼</span>
+      </div>
+      <div id="nut-body-${gi}" style="display:none;padding:12px 16px">
+        ${group.tips.map(tip => `
+          <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--pink-light);align-items:flex-start">
+            <span style="font-size:1.3rem;flex-shrink:0">${tip.icon}</span>
+            <div>
+              <div style="font-weight:700;font-size:0.88rem;margin-bottom:3px">${tip.t}</div>
+              <div style="font-size:0.82rem;color:#555;line-height:1.6">${tip.d}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  document.getElementById('nutrition-body').innerHTML = tabs + content;
+}
+function switchNutritionTab(tab) { nutritionTab = tab; renderNutrition(); }
+function toggleNutSection(i) {
+  const b = document.getElementById('nut-body-'+i), a = document.getElementById('nut-arrow-'+i);
+  const open = b.style.display==='block';
+  b.style.display = open?'none':'block';
+  a.textContent = open?'▼':'▲';
 }
 
-// ADMIN
-function showAdminLogin() {
-  document.getElementById('admin-pin').value = '';
-  document.getElementById('pin-error').style.display = 'none';
-  showScreen('admin-login');
+// ── JOURNAL ───────────────────────────────────────────────────────────────────
+function openJournalModal(){
+  document.getElementById('mem-title').value='';
+  document.getElementById('mem-note').value='';
+  document.getElementById('mem-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('journal-modal').classList.remove('hidden');
 }
-function checkPin() {
-  if (document.getElementById('admin-pin').value === ADMIN_CODE) { showScreen('admin'); renderAdmin(); }
-  else document.getElementById('pin-error').style.display = 'block';
+function closeJournalModal(){document.getElementById('journal-modal').classList.add('hidden');}
+function saveMemory(){
+  const title=document.getElementById('mem-title').value.trim();
+  if(!title){showToast('أدخلي عنوان الذكرى');return;}
+  S.memories.unshift({
+    id: Date.now(),
+    tag: document.getElementById('mem-tag').value,
+    title, note: document.getElementById('mem-note').value.trim(),
+    date: document.getElementById('mem-date').value
+  });
+  closeJournalModal(); renderJournal(); showToast('تم حفظ الذكرى 💕');
 }
-function renderAdmin() {
-  const now = Date.now();
-  const active = S.subscribers.filter(s=>s.expiry>now).length;
-  const expiring = S.subscribers.filter(s=>s.expiry>now && s.expiry-now<7*864e5).length;
-  const revenue = S.subscribers.reduce((a,s)=>a+(s.plan==='LLM1'?500:s.plan==='LLM3'?1200:4000),0);
-  document.getElementById('admin-stats').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">مشتركات نشطات</div></div>
-    <div class="stat-card"><div class="stat-num">${revenue}</div><div class="stat-label">إجمالي (دج)</div></div>
-    <div class="stat-card"><div class="stat-num">${S.subscribers.length}</div><div class="stat-label">إجمالي المشتركات</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${expiring}</div><div class="stat-label">تنتهي قريباً</div></div>`;
-  document.getElementById('subs-list').innerHTML = S.subscribers.map(s=>{
-    const d=Math.ceil((s.expiry-now)/864e5);
-    const cls = d<=0?'badge-expired':d<=7?'badge-expiring':'badge-active';
-    const txt = d<=0?'منتهي':d<=7?`${d}ي`:'نشط';
-    return `<div class="sub-item"><div><div style="font-weight:700">${s.name}</div><div style="color:var(--gray)">${s.phone} — ${pName(s.plan)}</div></div><span class="sub-badge ${cls}">${txt}</span></div>`;
-  }).join('') || '<p style="color:var(--gray)">لا توجد مشتركات</p>';
-  const exp3 = S.subscribers.filter(s=>s.expiry>now&&(s.expiry-now)<3*864e5);
-  document.getElementById('alerts-body').innerHTML = exp3.length
-    ? exp3.map(s=>`<div class="alert-item"><div><div class="alert-name">${s.name}</div><div>${s.phone} — تنتهي ${fmtDate(s.expiry)}</div></div><button class="alert-wa" onclick="renewWA('${s.name}','${s.phone}','${s.plan}')">📲 تذكير</button></div>`).join('')
-    : '<p style="color:var(--green)">✅ لا توجد تنبيهات</p>';
+function deleteMemory(id){S.memories=S.memories.filter(m=>m.id!==id);renderJournal();}
+function renderJournal(){
+  const el=document.getElementById('journal-list');
+  if(!S.memories.length){
+    el.innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--gray)"><div style="font-size:3rem;margin-bottom:12px">📝</div><p>لا توجد ذكريات بعد.<br>أضيفي أول لحظة جميلة!</p></div>`;return;
+  }
+  el.innerHTML=S.memories.map(m=>`
+    <div class="memory-card">
+      <div class="memory-card-header">
+        <span class="memory-tag">${m.tag}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="memory-date">${fmtDate(new Date(m.date))}</span>
+          <button class="memory-del" onclick="deleteMemory(${m.id})">🗑️</button>
+        </div>
+      </div>
+      <div class="memory-title">${m.title}</div>
+      ${m.note?`<div class="memory-note">${m.note}</div>`:''}
+    </div>`).join('');
 }
-function generateCode() {
+
+// ── GROWTH TRACKER ────────────────────────────────────────────────────────────
+function openGrowthModal(){
+  document.getElementById('growth-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('growth-weight').value='';
+  document.getElementById('growth-height').value='';
+  document.getElementById('growth-note').value='';
+  document.getElementById('growth-modal').classList.remove('hidden');
+}
+function closeGrowthModal(){document.getElementById('growth-modal').classList.add('hidden');}
+function saveGrowth(){
+  const w=parseFloat(document.getElementById('growth-weight').value);
+  const h=parseFloat(document.getElementById('growth-height').value);
+  if(!w&&!h){showToast('أدخلي الوزن أو الطول على الأقل');return;}
+  S.growthRecords.unshift({
+    id: Date.now(),
+    date: document.getElementById('growth-date').value,
+    weight: w||null, height: h||null,
+    note: document.getElementById('growth-note').value.trim()
+  });
+  S.growthRecords.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  closeGrowthModal(); renderGrowth(); showToast('تم حفظ القياس ✅');
+}
+function deleteGrowth(id){S.growthRecords=S.growthRecords.filter(r=>r.id!==id);renderGrowth();}
+function renderGrowth(){
+  const last=S.growthRecords.length?S.growthRecords[S.growthRecords.length-1]:null;
+  document.getElementById('growth-stats').innerHTML=`
+    <div class="growth-stat"><div class="growth-stat-num">${last&&last.weight?last.weight+' كغ':'—'}</div><div class="growth-stat-label">آخر وزن</div></div>
+    <div class="growth-stat"><div class="growth-stat-num">${last&&last.height?last.height+' سم':'—'}</div><div class="growth-stat-label">آخر طول</div></div>`;
+  // chart
+  const chartBox=document.getElementById('growth-chart-box');
+  const withWeight=S.growthRecords.filter(r=>r.weight);
+  if(withWeight.length>=2){
+    chartBox.style.display='block';
+    drawGrowthChart(withWeight);
+  } else { chartBox.style.display='none'; }
+  // list
+  const el=document.getElementById('growth-list');
+  if(!S.growthRecords.length){
+    el.innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--gray)"><div style="font-size:3rem;margin-bottom:12px">⚖️</div><p>لا توجد قياسات بعد.<br>أضيفي أول قياس لطفلك!</p></div>`;return;
+  }
+  el.innerHTML=[...S.growthRecords].reverse().map(r=>`
+    <div class="growth-entry">
+      <div class="growth-entry-info">
+        <div>
+          <div class="growth-entry-date">${fmtDate(new Date(r.date))}</div>
+          ${r.note?`<div style="font-size:0.75rem;color:var(--gray)">${r.note}</div>`:''}
+        </div>
+        <div class="growth-entry-vals">
+          ${r.weight?`⚖️ ${r.weight} كغ `:''} ${r.height?`📏 ${r.height} سم`:''}
+        </div>
+      </div>
+      <button style="background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem" onclick="deleteGrowth(${r.id})">🗑️</button>
+    </div>`).join('');
+}
+function drawGrowthChart(records){
+  const canvas=document.getElementById('growth-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.parentElement.clientWidth-32;
+  canvas.width=W; canvas.height=160;
+  ctx.clearRect(0,0,W,160);
+  const weights=records.map(r=>r.weight);
+  const minW=Math.min(...weights)-0.5, maxW=Math.max(...weights)+0.5;
+  const pad={l:30,r:10,t:10,b:30};
+  const cW=W-pad.l-pad.r, cH=160-pad.t-pad.b;
+  // grid
+  ctx.strokeStyle='#f0e0f0'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad.t+cH*(i/4);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();}
+  // y labels
+  ctx.fillStyle='#999';ctx.font='10px sans-serif';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){const v=maxW-(maxW-minW)*(i/4);const y=pad.t+cH*(i/4);ctx.fillText(v.toFixed(1),pad.l-4,y+4);}
+  // line
+  ctx.beginPath();ctx.strokeStyle='#e8739a';ctx.lineWidth=2.5;ctx.lineJoin='round';
+  records.forEach((r,i)=>{
+    const x=pad.l+cW*(i/(records.length-1));
+    const y=pad.t+cH*(1-(r.weight-minW)/(maxW-minW));
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  // dots
+  records.forEach((r,i)=>{
+    const x=pad.l+cW*(i/(records.length-1));
+    const y=pad.t+cH*(1-(r.weight-minW)/(maxW-minW));
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#e8739a';ctx.fill();
+  });
+  // x labels (first and last)
+  ctx.fillStyle='#999';ctx.font='9px sans-serif';ctx.textAlign='center';
+  const fmtShort=d=>{ const dt=new Date(d); return (dt.getMonth()+1)+'/'+dt.getFullYear().toString().slice(2); };
+  ctx.fillText(fmtShort(records[0].date),pad.l,160-8);
+  ctx.fillText(fmtShort(records[records.length-1].date),pad.l+cW,160-8);
+}
+
+// ── PROFILE ───────────────────────────────────────────────────────────────────
+function updateProfile(){
+  document.getElementById('profile-name').textContent=S.userName||'أمّ لولو';
+  document.getElementById('profile-stage-text').textContent=stageText();
+  document.getElementById('profile-status').textContent=S.subscribed?(S.subExpiry?`اشتراك فعّال حتى ${fmtDate(S.subExpiry)}`:'اشتراك فعّال'):`مجاني — ${S.freeChats} استشارات متبقية`;
+  document.getElementById('profile-banner').innerHTML=bannerHTML();
+}
+
+// ── CHAT ──────────────────────────────────────────────────────────────────────
+function goToChat(){showScreen('chat');updateChatUI();}
+function updateChatUI(){
+  const blocked=!S.subscribed&&S.freeChats<=0;
+  const expired=S.subscribed&&S.subExpiry&&S.subExpiry<Date.now();
+  const pw=document.getElementById('chat-paywall'),ia=document.getElementById('chat-input-area'),cc=document.getElementById('chat-counter');
+  if(blocked||expired){
+    ia.style.display='none';cc.style.display='none';
+    pw.innerHTML=`<div class="paywall"><div class="paywall-icon">${expired?'⏰':'🔒'}</div><h2>${expired?'انتهى اشتراكك':'استنفذت استشاراتك المجانية'}</h2><p>${expired?'جددي اشتراكك للاستمرار':'اشتركي للحصول على استشارات غير محدودة 💕'}</p><button class="btn btn-primary" onclick="nav('plans')">اشتركي الآن ⭐</button></div>`;
+  } else {
+    ia.style.display='flex';pw.innerHTML='';
+    cc.style.display=S.subscribed?'none':'block';
+    document.getElementById('free-left').textContent=S.freeChats;
+  }
+}
+async function sendMessage(){
+  const inp=document.getElementById('chat-input');const msg=inp.value.trim();
+  if(!msg)return;
+  if(!S.subscribed&&S.freeChats<=0){updateChatUI();return;}
+  if(!S.subscribed){S.freeChats--;document.getElementById('free-left').textContent=S.freeChats;}
+  addBubble(msg,'user');inp.value='';S.chatHistory.push({role:'user',content:msg});
+  const typing=document.createElement('div');typing.className='chat-bubble bubble-ai';typing.id='typing';
+  typing.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('chat-body').appendChild(typing);scrollChat();
+  try{
+    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:300,messages:[
+        {role:'system',content:'أنتِ مساعدة طبية ودية متخصصة في الحمل ورعاية الأطفال حتى سن 5 سنوات. تتحدثين بالعربية الفصحى البسيطة مع مراعاة السياق الجزائري. ردودك دافئة وعملية ولا تتجاوز 150 كلمة. دائماً تختمين بتذكير لطيف باستشارة الطبيب عند الضرورة.'},
+        ...S.chatHistory.slice(-6)
+      ]})
+    });
+    const data=await res.json();
+    document.getElementById('typing')?.remove();
+    const reply=data.choices?.[0]?.message?.content||'عذراً، حدث خطأ. حاولي مرة أخرى.';
+    S.chatHistory.push({role:'assistant',content:reply});addBubble(reply,'ai');
+  }catch(e){document.getElementById('typing')?.remove();addBubble('عذراً، حدث خطأ في الاتصال. تأكدي من الإنترنت وحاولي مجدداً.','ai');}
+  updateChatUI();scrollChat();
+}
+function addBubble(text,who){const d=document.createElement('div');d.className=`chat-bubble bubble-${who}`;d.textContent=text;document.getElementById('chat-body').appendChild(d);scrollChat();}
+function scrollChat(){const b=document.getElementById('chat-body');setTimeout(()=>b.scrollTop=b.scrollHeight,50);}
+document.addEventListener('DOMContentLoaded',()=>{const inp=document.getElementById('chat-input');if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});});
+
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+function showAdminLogin(){document.getElementById('admin-pin').value='';document.getElementById('pin-error').style.display='none';showScreen('admin-login');}
+function checkPin(){if(document.getElementById('admin-pin').value===ADMIN_CODE){showScreen('admin');renderAdmin();}else document.getElementById('pin-error').style.display='block';}
+function renderAdmin(){
+  const now=Date.now();
+  const active=S.subscribers.filter(s=>s.expiry>now).length;
+  const expiring=S.subscribers.filter(s=>s.expiry>now&&s.expiry-now<7*864e5).length;
+  const revenue=S.subscribers.reduce((a,s)=>a+(s.plan==='LLM1'?500:s.plan==='LLM3'?1200:4000),0);
+  document.getElementById('admin-stats').innerHTML=`<div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">مشتركات نشطات</div></div><div class="stat-card"><div class="stat-num">${revenue}</div><div class="stat-label">إجمالي (دج)</div></div><div class="stat-card"><div class="stat-num">${S.subscribers.length}</div><div class="stat-label">إجمالي المشتركات</div></div><div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${expiring}</div><div class="stat-label">تنتهي قريباً</div></div>`;
+  document.getElementById('subs-list').innerHTML=S.subscribers.map(s=>{const d=Math.ceil((s.expiry-now)/864e5);const cls=d<=0?'badge-expired':d<=7?'badge-expiring':'badge-active';const txt=d<=0?'منتهي':d<=7?`${d}ي`:'نشط';return `<div class="sub-item"><div><div style="font-weight:700">${s.name}</div><div style="color:var(--gray)">${s.phone} — ${pName(s.plan)}</div></div><span class="sub-badge ${cls}">${txt}</span></div>`;}).join('')||'<p style="color:var(--gray)">لا توجد مشتركات</p>';
+  const exp3=S.subscribers.filter(s=>s.expiry>now&&(s.expiry-now)<3*864e5);
+  document.getElementById('alerts-body').innerHTML=exp3.length?exp3.map(s=>`<div class="alert-item"><div><div class="alert-name">${s.name}</div><div>${s.phone} — تنتهي ${fmtDate(s.expiry)}</div></div><button class="alert-wa" onclick="renewWA('${s.name}','${s.phone}','${s.plan}')">📲 تذكير</button></div>`).join(''):'<p style="color:var(--green)">✅ لا توجد تنبيهات</p>';
+}
+function generateCode(){
   const name=document.getElementById('gen-name').value.trim();
   const phone=document.getElementById('gen-phone').value.trim();
   const plan=document.getElementById('gen-plan').value;
-  if (!phone||phone.length<9){showToast('أدخلي رقم الهاتف بشكل صحيح');return;}
-  const l6=phone.slice(-6);
-  const cs=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
-  const code=`${plan}${l6}${cs}`;
-  const exp=new Date(Date.now()+pDays(plan)*864e5);
-  S.lastCode=code; S.lastName=name; S.lastPlan=plan; S.lastExpiry=exp;
-  document.getElementById('gen-code').textContent=code;
-  document.getElementById('gen-expiry').textContent=`صالح حتى: ${fmtDate(exp)}`;
-  document.getElementById('gen-box').style.display='block';
-  if(name){S.subscribers.unshift({name,phone,plan,expiry:exp});renderAdmin();}
-}
-function copyCode(){navigator.clipboard.writeText(S.lastCode).then(()=>showToast('تم نسخ الكود ✅'));}
-function sendCodeWA(){
-  const msg=`أهلاً ${S.lastName} 💕\nكودك للباقة ${pName(S.lastPlan)}:\n*${S.lastCode}*\nصالح حتى: ${fmtDate(S.lastExpiry)}\nافتحي التطبيق → الباقات → أدخلي الكود 🌸`;
-  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
-}
-
-// ACTIVATION
-function activateCode(){
-  const code=document.getElementById('act-code').value.trim().toUpperCase();
-  const res=document.getElementById('act-result');
-  let plan=null;
-  if(code.startsWith('LLMY'))plan='LLMY';
-  else if(code.startsWith('LLM3'))plan='LLM3';
-  else if(code.startsWith('LLM1'))plan='LLM1';
-  if(!plan||code.length<12){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
-  const l6=code.slice(plan.length,plan.length+6);
-  const cs=code.slice(plan.length+6,plan.length+8);
-  const exp=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
-  if(cs!==exp){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
-  S.subscribed=true; S.subExpiry=new Date(Date.now()+pDays(plan)*864e5); S.freeChats=999;
-  res.innerHTML=`<span style="color:var(--green)">✅ تم التفعيل! باقة ${pName(plan)} حتى ${fmtDate(S.subExpiry)}</span>`;
-  showToast('تم تفعيل اشتراكك بنجاح 🎉'); updateProfile();
-}
-
-// WHATSAPP
-function openWA(type){
-  const msg=type==='payment'?'مرحباً، أريد الاشتراك في تطبيق لولو وماما 💕 إليك صورة الإيصال:':'';
-  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
-}
-function renewWA(name,phone,plan){
-  const msg=`أهلاً ${name} 💕\nاشتراكك في لولو وماما (${pName(plan)}) يوشك على الانتهاء.\nجددي الآن 🌸`;
-  window.open(`https://wa.me/213${phone.slice(1)}?text=${encodeURIComponent(msg)}`);
-}
-
-// UTILS
-function pName(c){return c==='LLM1'?'شهري':c==='LLM3'?'3 أشهر':'سنوي';}
-function pDays(c){return c==='LLM1'?30:c==='LLM3'?90:365;}
-function fmtDate(d){return new Date(d).toLocaleDateString('ar-DZ',{year:'numeric',month:'long',day:'numeric'});}
-function showToast(msg){
-  const t=document.createElement('div');t.className='toast';t.textContent=msg;
-  document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
-}
-</script>
-</body>
-</html>
+  if(!phone||phone.length<9){showToast('أدخلي رقم الهاتف بشكل صحيح');return;}
+  const l6=phone.slice(-6);const cs=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padS
