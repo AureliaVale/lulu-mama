@@ -1330,4 +1330,34 @@ function generateCode(){
   const phone=document.getElementById('gen-phone').value.trim();
   const plan=document.getElementById('gen-plan').value;
   if(!phone||phone.length<9){showToast('أدخلي رقم الهاتف بشكل صحيح');return;}
-  const l6=phone.slice(-6);const cs=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padS
+  const l6=phone.slice(-6);const cs=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
+  const code=`${plan}${l6}${cs}`;const exp=new Date(Date.now()+pDays(plan)*864e5);
+  S.lastCode=code;S.lastName=name;S.lastPlan=plan;S.lastExpiry=exp;
+  document.getElementById('gen-code').textContent=code;
+  document.getElementById('gen-expiry').textContent=`صالح حتى: ${fmtDate(exp)}`;
+  document.getElementById('gen-box').style.display='block';
+  if(name){S.subscribers.unshift({name,phone,plan,expiry:exp});renderAdmin();}
+}
+function copyCode(){navigator.clipboard.writeText(S.lastCode).then(()=>showToast('تم نسخ الكود ✅'));}
+function sendCodeWA(){const msg=`أهلاً ${S.lastName} 💕\nكودك للباقة ${pName(S.lastPlan)}:\n*${S.lastCode}*\nصالح حتى: ${fmtDate(S.lastExpiry)}\nافتحي التطبيق → الباقات → أدخلي الكود 🌸`;window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);}
+function activateCode(){
+  const code=document.getElementById('act-code').value.trim().toUpperCase();
+  const res=document.getElementById('act-result');let plan=null;
+  if(code.startsWith('LLMY'))plan='LLMY';else if(code.startsWith('LLM3'))plan='LLM3';else if(code.startsWith('LLM1'))plan='LLM1';
+  if(!plan||code.length<12){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
+  const l6=code.slice(plan.length,plan.length+6);const cs=code.slice(plan.length+6,plan.length+8);
+  const exp=(l6.split('').reduce((a,d)=>a+parseInt(d),0)%100).toString().padStart(2,'0');
+  if(cs!==exp){res.innerHTML='<span style="color:var(--red)">❌ كود غير صحيح</span>';return;}
+  S.subscribed=true;S.subExpiry=new Date(Date.now()+pDays(plan)*864e5);S.freeChats=999;
+  res.innerHTML=`<span style="color:var(--green)">✅ تم التفعيل! باقة ${pName(plan)} حتى ${fmtDate(S.subExpiry)}</span>`;
+  showToast('تم تفعيل اشتراكك بنجاح 🎉');updateProfile();
+}
+function openWA(type){const msg=type==='payment'?'مرحباً، أريد الاشتراك في تطبيق لولو وماما 💕 إليك صورة الإيصال:':'';window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);}
+function renewWA(name,phone,plan){const msg=`أهلاً ${name} 💕\nاشتراكك في لولو وماما (${pName(plan)}) يوشك على الانتهاء.\nجددي الآن 🌸`;window.open(`https://wa.me/213${phone.slice(1)}?text=${encodeURIComponent(msg)}`);}
+function pName(c){return c==='LLM1'?'شهري':c==='LLM3'?'3 أشهر':'سنوي';}
+function pDays(c){return c==='LLM1'?30:c==='LLM3'?90:365;}
+function fmtDate(d){return new Date(d).toLocaleDateString('ar-DZ',{year:'numeric',month:'long',day:'numeric'});}
+function showToast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+</script>
+</body>
+</html>
